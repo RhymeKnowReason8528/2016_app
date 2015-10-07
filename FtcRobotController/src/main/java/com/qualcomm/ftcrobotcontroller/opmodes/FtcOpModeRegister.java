@@ -90,18 +90,9 @@ public class FtcOpModeRegister implements OpModeRegister {
     //manager.register ("PushBotOdsDetectEvent", PushBotOdsDetectEvent.class);
     //manager.register ("PushBotOdsFollowEvent", PushBotOdsFollowEvent.class);
     //manager.register ("PushBotTouchEvent", PushBotTouchEvent.class);    
-    
-<<<<<<< HEAD
-    //manager.register("PushBotDriveTouch", PushBotDriveTouch.class);
-    //manager.register("PushBotIrSeek", PushBotIrSeek.class);
-    //manager.register("PushBotSquare", PushBotSquare.class);
-=======
+
     //manager.register("PushBotDriveTouch", PushBotDriveTouch.java);
     //manager.register("PushBotIrSeek", PushBotIrSeek.java);
     //manager.register("PushBotSquare", PushBotSquare.java);
-
-    
-    
->>>>>>> ftctechnh/master
   }
 }

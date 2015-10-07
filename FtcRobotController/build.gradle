@@ -1,18 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
-<<<<<<< HEAD
-    compileSdkVersion 19
-    buildToolsVersion = '21.1.2'
 
-=======
->>>>>>> ftctechnh/master
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 19
     }
-    compileSdkVersion 'Google Inc.:Google APIs:19'
-    buildToolsVersion '21.1.2'
+
+    compileSdkVersion 19
+    buildToolsVersion = '21.1.2'
 }
 
 buildscript {
