@@ -7,6 +7,8 @@ public class RKRTeleOp extends OpMode {
     //Instance Variables / fields
     DcMotor motorRight;
     DcMotor motorLeft;
+    DcMotor armShoulder;
+    DcMotor armElbow;
 
     //Constants
     final float DEAD_ZONE = (float).15;
@@ -17,6 +19,10 @@ public class RKRTeleOp extends OpMode {
         motorRight = hardwareMap.dcMotor.get("motor_2");
         motorLeft = hardwareMap.dcMotor.get("motor_1");
         motorRight.setDirection(DcMotor.Direction.REVERSE);
+        armShoulder = hardwareMap.dcMotor.get("motor_shoulder");
+        armShoulder.setDirection(DcMotor.Direction.REVERSE);
+        armElbow = hardwareMap.dcMotor.get("motor_elbow");
+        armElbow.setDirection(DcMotor.Direction.REVERSE);
     }
 
     @Override
@@ -35,5 +41,23 @@ public class RKRTeleOp extends OpMode {
         } else {
             motorLeft.setPower(0);
         }
+
+        if(gamepad1.right_bumper){
+            armElbow.setPower(0.35);
+        } else if(gamepad1.right_trigger > 0.5){
+            armElbow.setPower(-0.35);
+        } else {
+            armElbow.setPower(0);
+        }
+
+        if(gamepad1.left_bumper){
+            armShoulder.setPower(0.35);
+        } else if(gamepad1.left_trigger > 0.35){
+            armShoulder.setPower(-0.5);
+        } else {
+            armShoulder.setPower(0);
+        }
+
+
     }
 }
