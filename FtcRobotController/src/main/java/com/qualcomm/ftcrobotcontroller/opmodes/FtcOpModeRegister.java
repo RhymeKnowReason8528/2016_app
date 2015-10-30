@@ -64,6 +64,7 @@ public class FtcOpModeRegister implements OpModeRegister {
 
     //Our own OpModes
     manager.register("RKR TeleOp", RKRTeleOp.class);
+    manager.register("RKR IR Test", RKRIrTest.class);
 
     /*
      * Uncomment any of the following lines if you want to register an op mode.
