@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<Robot>
+    <ServoController name="servos" serialNumber="AL00VC44">
+        <Servo name="servo_1" port="1" />
+        <Servo name="servo_6" port="6" />
+    </ServoController>
+    <LegacyModuleController name="sensors" serialNumber="AL00VBU8">
+        <IrSeeker name="ir_seeker" port="2" />
+        <LightSensor name="light_sensor" port="3" />
+    </LegacyModuleController>
+    <MotorController name="wheels" serialNumber="AL00YC7V">
+        <Motor name="motor_1" port="1" />
+        <Motor name="motor_2" port="2" />
+    </MotorController>
+</Robot>

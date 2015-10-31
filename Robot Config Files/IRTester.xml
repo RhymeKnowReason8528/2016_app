@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<Robot>
+    <DeviceInterfaceModule name="Device Interface Module 1" serialNumber="AL00VCZV">
+        <IrSeekerV3 name="ir_seeker" port="0" />
+    </DeviceInterfaceModule>
+</Robot>
