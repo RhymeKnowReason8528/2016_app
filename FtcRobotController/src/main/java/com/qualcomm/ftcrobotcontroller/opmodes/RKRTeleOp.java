@@ -43,17 +43,17 @@ public class RKRTeleOp extends OpMode {
         }
 
         if(gamepad1.right_bumper){
-            armElbow.setPower(0.35);
+            armElbow.setPower(1);
         } else if(gamepad1.right_trigger > 0.5){
-            armElbow.setPower(-0.35);
+            armElbow.setPower(-1);
         } else {
             armElbow.setPower(0);
         }
 
         if(gamepad1.left_bumper){
-            armShoulder.setPower(0.35);
-        } else if(gamepad1.left_trigger > 0.35){
-            armShoulder.setPower(-0.5);
+            armShoulder.setPower(1);
+        } else if(gamepad1.left_trigger > 0.5){
+            armShoulder.setPower(-1);
         } else {
             armShoulder.setPower(0);
         }
