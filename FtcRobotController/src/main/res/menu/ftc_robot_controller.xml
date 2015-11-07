@@ -45,6 +45,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     android:title="@string/restart_robot_menu_item"/>
 
   <item
+    android:id="@+id/action_manual_control"
+    android:orderInCategory="101"
+    android:showAsAction="ifRoom"
+    android:title="Manual control" />
+
+  <item
     android:id="@+id/action_view_logs"
     android:orderInCategory="101"
     android:showAsAction="never"

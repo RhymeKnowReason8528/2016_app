@@ -74,6 +74,9 @@ import java.io.Serializable;
 
 public class FtcRobotControllerActivity extends Activity {
 
+  public static final String TANK_BOT_CONFIG = "tankBot";
+  public static final String K9_ARM_CONFIG = "k9bot arm";
+
   private static final int REQUEST_CONFIG_WIFI_CHANNEL = 1;
   private static final boolean USE_DEVICE_EMULATION = false;
   private static final int NUM_GAMEPADS = 2;
@@ -254,6 +257,15 @@ public class FtcRobotControllerActivity extends Activity {
         // The string to launch this activity must match what's in AndroidManifest of FtcCommon for this activity.
         Intent settingsIntent = new Intent("com.qualcomm.ftccommon.FtcRobotControllerSettingsActivity.intent.action.Launch");
         startActivityForResult(settingsIntent, LaunchActivityConstantsList.FTC_ROBOT_CONTROLLER_ACTIVITY_CONFIGURE_ROBOT);
+        return true;
+      case R.id.action_manual_control:
+        final String filename = utility.getFilenameFromPrefs(R.string.pref_hardware_config_filename, Utility.NO_FILE);
+        if(filename.equals(K9_ARM_CONFIG)) {
+          Intent manualIntent = new Intent(this,K9ArmManualActivity.class);
+          startActivity(manualIntent);
+        } else {
+          Toast.makeText(this,"No activity found for " + filename + ".",Toast.LENGTH_LONG).show();
+        }
         return true;
       case R.id.action_about:
         // The string to launch this activity must match what's in AndroidManifest of FtcCommon for this activity.
