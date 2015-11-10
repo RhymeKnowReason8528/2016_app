@@ -5,8 +5,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 public class RKRTeleOp extends OpMode {
     //Instance Variables / fields
-    DcMotor motorRight;
-    DcMotor motorLeft;
+    DcMotor motorRightFront;
+    DcMotor motorRightBack;
+    DcMotor motorLeftFront;
+    DcMotor motorLeftBack;
     DcMotor armShoulder;
     DcMotor armElbow;
 
@@ -16,9 +18,13 @@ public class RKRTeleOp extends OpMode {
     //OpMode required methods
     @Override
     public void init() {
-        motorRight = hardwareMap.dcMotor.get("motor_2");
-        motorLeft = hardwareMap.dcMotor.get("motor_1");
-        motorRight.setDirection(DcMotor.Direction.REVERSE);
+        motorRightFront = hardwareMap.dcMotor.get("rightFront");
+        motorRightBack = hardwareMap.dcMotor.get("rightBack");
+        motorLeftFront = hardwareMap.dcMotor.get("leftFront");
+        motorLeftBack = hardwareMap.dcMotor.get("leftBack");
+        motorRightFront.setDirection(DcMotor.Direction.REVERSE);
+        motorRightBack.setDirection(DcMotor.Direction.REVERSE);
+
         armShoulder = hardwareMap.dcMotor.get("motor_shoulder");
         armShoulder.setDirection(DcMotor.Direction.REVERSE);
         armElbow = hardwareMap.dcMotor.get("motor_elbow");
@@ -31,15 +37,19 @@ public class RKRTeleOp extends OpMode {
         float rightPower = gamepad1.right_stick_y;
 
         if(Math.abs(rightPower) > Math.abs(DEAD_ZONE)) {
-            motorRight.setPower(rightPower);
+            motorRightFront.setPower(rightPower);
+            motorRightBack.setPower(rightPower);
         } else {
-            motorRight.setPower(0);
+            motorRightFront.setPower(0);
+            motorRightBack.setPower(0);
         }
 
         if(Math.abs(leftPower) > Math.abs(DEAD_ZONE)) {
-            motorLeft.setPower(leftPower);
+            motorLeftFront.setPower(leftPower);
+            motorLeftBack.setPower(leftPower);
         } else {
-            motorLeft.setPower(0);
+            motorLeftFront.setPower(0);
+            motorLeftBack.setPower(0);
         }
 
         if(gamepad1.right_bumper){

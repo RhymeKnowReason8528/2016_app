@@ -4,8 +4,12 @@
         <Motor name="motor_shoulder" port="1" />
         <Motor name="motor_elbow" port="2" />
     </MotorController>
-    <MotorController name="Wheels" serialNumber="AL00YC7V">
-        <Motor name="motor_1" port="1" />
-        <Motor name="motor_2" port="2" />
+    <MotorController name="LeftWheels" serialNumber="AL00YC7V">
+        <Motor name="leftFront" port="1" />
+        <Motor name="leftBack" port="2" />
+    </MotorController>
+    <MotorController name="RightWheels" serialNumber="AL00VUU8">
+        <Motor name="rightFront" port="1" />
+        <Motor name="rightBack" port="2" />
     </MotorController>
 </Robot>
