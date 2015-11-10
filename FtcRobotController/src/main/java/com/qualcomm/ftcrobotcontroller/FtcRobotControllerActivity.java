@@ -260,6 +260,7 @@ public class FtcRobotControllerActivity extends Activity {
         return true;
       case R.id.action_manual_control:
         final String filename = utility.getFilenameFromPrefs(R.string.pref_hardware_config_filename, Utility.NO_FILE);
+        // gets name of the configuration file
         if(filename.equals(K9_ARM_CONFIG)) {
           Intent manualIntent = new Intent(this,K9ArmManualActivity.class);
           startActivity(manualIntent);
