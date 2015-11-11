@@ -33,8 +33,14 @@ public class K9ArmManualActivity extends Activity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                armUpButton.setVisibility(View.VISIBLE); //TODO: If running the OpMode fails, the buttons should stay invisible.
-                armDownButton.setVisibility(View.VISIBLE);
+                if(armupButton.getVisibility(View.INVISIBLE)) {
+                    armUpButton.setVisibility(View.VISIBLE); //TODO: If running the OpMode fails, the buttons should stay invisible.
+                    armDownButton.setVisibility(View.VISIBLE);
+                }
+                else {
+                    armUpButton.setVisibility(View.INVISIBLE); //TODO: If running the OpMode fails, the buttons should stay invisible.
+                    armDownButton.setVisibility(View.INVISIBLE);
+                }
             }
         });
         armUpButton.setOnClickListener(new Button.OnClickListener() {
