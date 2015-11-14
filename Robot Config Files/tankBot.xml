@@ -1,11 +1,16 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
 <Robot>
-    <MotorController name="Motor Controller 1" serialNumber="AL00VUU8">
-        <Motor name="leftfront" port="1" />
-        <Motor name="rightfront" port="2" />
-    </MotorController>
-    <MotorController name="Motor Controller 2" serialNumber="AL00VV65">
-        <Motor name="leftback" port="1" />
+    <MotorController name="Right Controller" serialNumber="AL00VV65">
+        <Motor name="rightfront" port="1" />
         <Motor name="rightback" port="2" />
+    </MotorController>
+
+    <MotorController name="Left Controller" serialNumber="AL00YC7V">
+        <Motor name="leftfront" port="1" />
+        <Motor name="leftback" port="2" />
+    </MotorController>
+
+    <MotorController name="Tread Shifter Controller" serialNumber="AL00YD4I">
+        <Motor name="treadshifter" port="1" />
     </MotorController>
 </Robot>

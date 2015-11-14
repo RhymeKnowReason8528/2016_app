@@ -8,6 +8,7 @@ public class TankBotTeleOp extends OpMode {
     DcMotor motorLeftFront;
     DcMotor motorRightBack;
     DcMotor motorLeftBack;
+    DcMotor motorTreadShifter;
 
     //Constants
     final float DEAD_ZONE = (float).15;
@@ -21,6 +22,8 @@ public class TankBotTeleOp extends OpMode {
         motorLeftBack = hardwareMap.dcMotor.get("leftback");
         motorRightFront.setDirection(DcMotor.Direction.REVERSE);
         motorRightBack.setDirection(DcMotor.Direction.REVERSE);
+
+        motorTreadShifter = hardwareMap.dcMotor.get("treadshifter");
     }
 
     @Override
@@ -44,7 +47,13 @@ public class TankBotTeleOp extends OpMode {
             motorLeftBack.setPower(0);
         }
 
-
+        if(gamepad1.y){
+            motorTreadShifter.setPower(1);
+        } else if(gamepad1.a) {
+            motorTreadShifter.setPower(-1);
+        } else {
+            motorTreadShifter.setPower(0);
+        }
 
     }
 
