@@ -25,7 +25,7 @@ public class K9ArmManualActivity extends Activity {
         statusToggleButton = (Button)findViewById(R.id.statusToggleButton);
         armUpButton = (Button)findViewById(R.id.armUpButton);
         armDownButton = (Button)findViewById(R.id.armDownButton);
-        statusToggleButton.setOnClickListener(new Button.OnClickListener() {
+        /*statusToggleButton.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
@@ -33,7 +33,7 @@ public class K9ArmManualActivity extends Activity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                if(armupButton.getVisibility(View.INVISIBLE)) {
+                if(armUpButton.getVisibility(View.INVISIBLE)) {
                     armUpButton.setVisibility(View.VISIBLE); //TODO: If running the OpMode fails, the buttons should stay invisible.
                     armDownButton.setVisibility(View.VISIBLE);
                 }
@@ -42,7 +42,7 @@ public class K9ArmManualActivity extends Activity {
                     armDownButton.setVisibility(View.INVISIBLE);
                 }
             }
-        });
+        });*/
         armUpButton.setOnClickListener(new Button.OnClickListener() {
 
             @Override
