@@ -15,41 +15,53 @@ public class K9ArmManualActivity extends Activity {
     private Button armDownButton;
     K9LinearOpMode opMode;
 
+    private State state;
+
+    enum State {
+        RUNNING,
+        STOPPED
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_k9_arm_manual);
-
+        state = State.STOPPED;
         opMode = new K9LinearOpMode();
 
         statusToggleButton = (Button)findViewById(R.id.statusToggleButton);
         armUpButton = (Button)findViewById(R.id.armUpButton);
         armDownButton = (Button)findViewById(R.id.armDownButton);
-        /*statusToggleButton.setOnClickListener(new Button.OnClickListener() {
+        statusToggleButton.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    opMode.runOpMode();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                if(armUpButton.getVisibility(View.INVISIBLE)) {
-                    armUpButton.setVisibility(View.VISIBLE); //TODO: If running the OpMode fails, the buttons should stay invisible.
+                if(state == State.STOPPED){
+                    try {
+                        opMode.runOpMode();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        if(e instanceof IllegalArgumentException) {
+                            return;
+                        }
+                    }
+                    state = State.RUNNING;
+                    armUpButton.setVisibility(View.VISIBLE);
                     armDownButton.setVisibility(View.VISIBLE);
-                }
-                else {
-                    armUpButton.setVisibility(View.INVISIBLE); //TODO: If running the OpMode fails, the buttons should stay invisible.
+                    statusToggleButton.setText("Stop");
+                } else {
+                    armUpButton.setVisibility(View.INVISIBLE);
                     armDownButton.setVisibility(View.INVISIBLE);
+                    //TODO add code for stopping the OpMode, changing state, and changing the button text.
                 }
             }
-        });*/
+        });
         armUpButton.setOnClickListener(new Button.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 try {
                     opMode.moveArmUp();
-                } catch (InterruptedException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
