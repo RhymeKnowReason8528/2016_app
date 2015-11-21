@@ -9,7 +9,7 @@
         <Motor name="leftBack" port="2" />
     </MotorController>
     <MotorController name="RightWheels" serialNumber="AL00VUU8">
-        <Motor name="rightFront" port="1" />
-        <Motor name="rightBack" port="2" />
+        <Motor name="rightBack" port="1" />
+        <Motor name="rightFront" port="2" />
     </MotorController>
 </Robot>
