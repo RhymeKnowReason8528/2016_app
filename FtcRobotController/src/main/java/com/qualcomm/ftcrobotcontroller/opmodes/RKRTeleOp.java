@@ -28,13 +28,12 @@ public class RKRTeleOp extends OpMode {
         armShoulder = hardwareMap.dcMotor.get("motor_shoulder");
         armShoulder.setDirection(DcMotor.Direction.REVERSE);
         armElbow = hardwareMap.dcMotor.get("motor_elbow");
-        armElbow.setDirection(DcMotor.Direction.REVERSE);
     }
 
     @Override
     public void loop() {
-        float leftPower = gamepad1.left_stick_y;
-        float rightPower = gamepad1.right_stick_y;
+        double leftPower = gamepad1.left_stick_y * 0.75;
+        double rightPower = gamepad1.right_stick_y * 0.75;
 
         if(Math.abs(rightPower) > Math.abs(DEAD_ZONE)) {
             motorRightFront.setPower(rightPower);
@@ -53,9 +52,9 @@ public class RKRTeleOp extends OpMode {
         }
 
         if(gamepad1.right_bumper){
-            armElbow.setPower(1);
+            armElbow.setPower(0.5);
         } else if(gamepad1.right_trigger > 0.5){
-            armElbow.setPower(-1);
+            armElbow.setPower(-0.5);
         } else {
             armElbow.setPower(0);
         }
