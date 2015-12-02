@@ -65,12 +65,12 @@ public class FtcOpModeRegister implements OpModeRegister {
 //    manager.register ("PushBotManual", PushBotManual.class);
 
     //Our own OpModes
+
     manager.register("RKR TeleOp", RKRTeleOp.class);
     manager.register("RKR IR Test", RKRIrTest.class);
     manager.register("RKR TankBot TeleOp", TankBotTeleOp.class);
     manager.register("Encoder Test", EncoderTestOpMode.class);
-
-
+    manager.register("RKRAuto", RKRAuto.class);
 
     /*
      * Uncomment any of the following lines if you want to register an op mode.
