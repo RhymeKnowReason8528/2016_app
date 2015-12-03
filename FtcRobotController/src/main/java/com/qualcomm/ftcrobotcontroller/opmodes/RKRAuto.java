@@ -22,7 +22,7 @@ public class RKRAuto extends LinearOpMode {
     //values in term of inches
 
     final static double CIRCUMFERENCE = Math.PI*WHEEL_DIAMETER;
-    final static double ROTATIONS = DISTANCE/WHEEL_DIAMETER;
+    final static double ROTATIONS = DISTANCE/CIRCUMFERENCE;
     final static double COUNTS = TICKS_PER_ROTATION * ROTATIONS;
 
     public void runOpMode() throws InterruptedException{
