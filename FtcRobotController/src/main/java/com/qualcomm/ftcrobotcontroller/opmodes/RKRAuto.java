@@ -58,12 +58,17 @@ public class RKRAuto extends LinearOpMode {
             motorLeftBack.setPower(.40);
             waitForNextHardwareCycle();
         }
-            //drives forward at a slow speed until the robot travels 6 feet
-        motorRightFront.setPowerFloat();
-        motorRightBack.setPowerFloat();
-        motorLeftFront.setPowerFloat();
-        motorLeftBack.setPowerFloat();
+
+        waitOneFullHardwareCycle();
+
+        //drives forward at a slow speed until the robot travels 6 feet
+        motorRightFront.setPower(0);
+        motorRightBack.setPower(0);
+        motorLeftFront.setPower(0);
+        motorLeftBack.setPower(0);
         //make the motos stop spinning once finished
+
+        telemetry.addData("encoder count", motorRightFront.getCurrentPosition());
     }
 
 }
