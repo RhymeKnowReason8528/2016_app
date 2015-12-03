@@ -36,6 +36,9 @@ public class RKRAuto extends LinearOpMode {
 
         motorRightFront.setMode(DcMotorController.RunMode.RESET_ENCODERS);
         motorLeftFront.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+        waitOneFullHardwareCycle();
+        motorRightFront.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
+        motorLeftFront.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         motorRightBack.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         motorLeftBack.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         //initialize encoders for front motors, let back motors run without encoders
