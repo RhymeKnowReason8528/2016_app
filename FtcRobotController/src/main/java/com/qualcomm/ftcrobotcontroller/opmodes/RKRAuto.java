@@ -41,6 +41,7 @@ public class RKRAuto extends LinearOpMode {
         motorLeftFront.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         motorRightBack.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         motorLeftBack.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
+        waitOneFullHardwareCycle();
         //initialize encoders for front motors, let back motors run without encoders
 
         armShoulder = hardwareMap.dcMotor.get("motor_shoulder");
@@ -51,16 +52,11 @@ public class RKRAuto extends LinearOpMode {
         waitForStart();
 
         while (motorRightFront.getCurrentPosition() < (int)COUNTS) {
-            motorRightFront.setPower(.60);
-            motorRightBack.setPower(.60);
-            motorLeftFront.setPower(.60);
-            motorLeftBack.setPower(.60);
-
-            telemetry.addData("Right Front Motor", motorRightFront.getPower());
-            telemetry.addData("Right Back Motor", motorRightBack.getPower());
-            telemetry.addData("Left Front Motor", motorLeftFront.getPower());
-            telemetry.addData("Left Back Motor", motorLeftBack.getPower());
-            waitOneFullHardwareCycle();
+            motorRightFront.setPower(.40);
+            motorRightBack.setPower(.40);
+            motorLeftFront.setPower(.40);
+            motorLeftBack.setPower(.40);
+            waitForNextHardwareCycle();
         }
             //drives forward at a slow speed until the robot travels 6 feet
         motorRightFront.setPowerFloat();
