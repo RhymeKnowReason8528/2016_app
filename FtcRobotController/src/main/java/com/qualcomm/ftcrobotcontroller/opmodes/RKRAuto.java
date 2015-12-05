@@ -30,8 +30,8 @@ public class RKRAuto extends LinearOpMode {
         motorRightBack = hardwareMap.dcMotor.get("rightBack");
         motorLeftFront = hardwareMap.dcMotor.get("leftFront");
         motorLeftBack = hardwareMap.dcMotor.get("leftBack");
-        motorRightFront.setDirection(DcMotor.Direction.REVERSE);
-        motorRightBack.setDirection(DcMotor.Direction.REVERSE);
+        motorLeftFront.setDirection(DcMotor.Direction.REVERSE);
+        motorLeftBack.setDirection(DcMotor.Direction.REVERSE);
         //initialize drive motors
 
         motorRightFront.setMode(DcMotorController.RunMode.RESET_ENCODERS);
