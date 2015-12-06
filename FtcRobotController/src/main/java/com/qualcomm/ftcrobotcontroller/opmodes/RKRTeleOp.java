@@ -24,6 +24,8 @@ public class RKRTeleOp extends OpMode {
         motorLeftBack = hardwareMap.dcMotor.get("leftBack");
         motorRightFront.setDirection(DcMotor.Direction.REVERSE);
         motorRightBack.setDirection(DcMotor.Direction.REVERSE);
+        // motor reversal was already taken care of when we first ran autonomous
+
 
         armShoulder = hardwareMap.dcMotor.get("motor_shoulder");
         armShoulder.setDirection(DcMotor.Direction.REVERSE);

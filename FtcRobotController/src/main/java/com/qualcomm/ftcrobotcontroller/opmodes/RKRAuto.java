@@ -18,7 +18,7 @@ public class RKRAuto extends LinearOpMode {
 
     final static int TICKS_PER_ROTATION = 1440;
     final static int WHEEL_DIAMETER = 4;
-    final static int DISTANCE= 72;
+    final static int DISTANCE = 72;
     //values in term of inches
 
     final static double CIRCUMFERENCE = Math.PI*WHEEL_DIAMETER;
@@ -30,9 +30,11 @@ public class RKRAuto extends LinearOpMode {
         motorRightBack = hardwareMap.dcMotor.get("rightBack");
         motorLeftFront = hardwareMap.dcMotor.get("leftFront");
         motorLeftBack = hardwareMap.dcMotor.get("leftBack");
-        motorLeftFront.setDirection(DcMotor.Direction.REVERSE);
-        motorLeftBack.setDirection(DcMotor.Direction.REVERSE);
+        motorRightFront.setDirection(DcMotor.Direction.REVERSE);
+        motorRightBack.setDirection(DcMotor.Direction.REVERSE);
         //initialize drive motors
+        //reversed the right motos just like teleOp
+
 
         motorRightFront.setMode(DcMotorController.RunMode.RESET_ENCODERS);
         motorLeftFront.setMode(DcMotorController.RunMode.RESET_ENCODERS);
@@ -44,6 +46,8 @@ public class RKRAuto extends LinearOpMode {
         waitOneFullHardwareCycle();
         //initialize encoders for front motors, let back motors run without encoders
 
+
+
         armShoulder = hardwareMap.dcMotor.get("motor_shoulder");
         armShoulder.setDirection(DcMotor.Direction.REVERSE);
         armElbow = hardwareMap.dcMotor.get("motor_elbow");
@@ -51,13 +55,18 @@ public class RKRAuto extends LinearOpMode {
 
         waitForStart();
 
-        while (motorRightFront.getCurrentPosition() < (int)COUNTS) {
-            motorRightFront.setPower(.40);
-            motorRightBack.setPower(.40);
-            motorLeftFront.setPower(.40);
-            motorLeftBack.setPower(.40);
+        while (motorRightFront.getCurrentPosition() > -Math.abs((int) COUNTS)) {
+            telemetry.addData("encoder count", motorRightFront.getCurrentPosition());
+            telemetry.addData("Counts", -Math.abs((int) COUNTS));
+            motorRightFront.setPower(-.40);
+            motorRightBack.setPower(-.40);
+            motorLeftFront.setPower(-.40);
+            motorLeftBack.setPower(-.40);
             waitForNextHardwareCycle();
         }
+        // keep in mind that according to the orientation of the motors, negative powers result
+        // in forward movement. This is relevant in our teleOp program also. when the joystick is
+        // pressed forward, it actually returns a NEGATIVE value.
 
         waitOneFullHardwareCycle();
 
