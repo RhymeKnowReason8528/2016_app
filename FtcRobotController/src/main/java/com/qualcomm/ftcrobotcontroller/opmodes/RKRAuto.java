@@ -24,6 +24,7 @@ public class RKRAuto extends LinearOpMode {
     final static double CIRCUMFERENCE = Math.PI*WHEEL_DIAMETER;
     final static double ROTATIONS = DISTANCE/CIRCUMFERENCE;
     final static double COUNTS = TICKS_PER_ROTATION * ROTATIONS;
+    //math calculations used in program to determine distance traveled in encoder counts
 
     public void runOpMode() throws InterruptedException{
         motorRightFront = hardwareMap.dcMotor.get("rightFront");
@@ -33,7 +34,7 @@ public class RKRAuto extends LinearOpMode {
         motorRightFront.setDirection(DcMotor.Direction.REVERSE);
         motorRightBack.setDirection(DcMotor.Direction.REVERSE);
         //initialize drive motors
-        //reversed the right motos just like teleOp
+        //reversed the right motors just like teleOp
 
 
         motorRightFront.setMode(DcMotorController.RunMode.RESET_ENCODERS);
@@ -46,8 +47,6 @@ public class RKRAuto extends LinearOpMode {
         waitOneFullHardwareCycle();
         //initialize encoders for front motors, let back motors run without encoders
 
-
-
         armShoulder = hardwareMap.dcMotor.get("motor_shoulder");
         armShoulder.setDirection(DcMotor.Direction.REVERSE);
         armElbow = hardwareMap.dcMotor.get("motor_elbow");
@@ -55,7 +54,7 @@ public class RKRAuto extends LinearOpMode {
 
         waitForStart();
 
-        while (motorRightFront.getCurrentPosition() > -Math.abs((int) COUNTS)) {
+        while (motorRightFront.getCurrentPosition() > -(int)COUNTS) {
             telemetry.addData("encoder count", motorRightFront.getCurrentPosition());
             telemetry.addData("Counts", -Math.abs((int) COUNTS));
             motorRightFront.setPower(-.40);
@@ -64,20 +63,21 @@ public class RKRAuto extends LinearOpMode {
             motorLeftBack.setPower(-.40);
             waitForNextHardwareCycle();
         }
+        // drives forward at a slow speed until the robot travels 6 feet
         // keep in mind that according to the orientation of the motors, negative powers result
         // in forward movement. This is relevant in our teleOp program also. when the joystick is
         // pressed forward, it actually returns a NEGATIVE value.
 
         waitOneFullHardwareCycle();
 
-        //drives forward at a slow speed until the robot travels 6 feet
         motorRightFront.setPower(0);
         motorRightBack.setPower(0);
         motorLeftFront.setPower(0);
         motorLeftBack.setPower(0);
-        //make the motos stop spinning once finished
+        //make the motors stop spinning once encoder reaches desired value
 
         telemetry.addData("encoder count", motorRightFront.getCurrentPosition());
+        //displays current encoder reading, testing to make sure that motors spin full distance
     }
 
 }
