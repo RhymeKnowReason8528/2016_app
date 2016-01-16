@@ -12,4 +12,9 @@
         <Motor name="rightBack" port="1" />
         <Motor name="rightFront" port="2" />
     </MotorController>
+	<ServoController name="servos" serialNumber="Al00VC44">
+		<Servo name="right_wing" port="" />
+		<Servo name="left_wing" port="" />
+	</ServoController>
+	
 </Robot>
