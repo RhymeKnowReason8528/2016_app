@@ -24,28 +24,21 @@ buildscript {
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
 
-    buildTypes {
-        release {
-            debuggable true
-        }
-        debug {
-            debuggable true
-        }
     }
-}
-repositories {
-    flatDir {
-        dirs 'libs'
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
     }
 }
 
 dependencies {
     compile files('libs/android-support-v4.jar')
-    compile (name:'RobotCore-release', ext:'aar')
-    compile (name:'Hardware-release', ext:'aar')
-    compile (name:'FtcCommon-release', ext:'aar')
-    compile (name:'ModernRobotics-release', ext:'aar')
-    compile (name:'Analytics-release', ext:'aar')
-    compile (name:'WirelessP2p-release', ext:'aar')
+    compile(name: 'RobotCore-release', ext: 'aar')
+    compile(name: 'Hardware-release', ext: 'aar')
+    compile(name: 'FtcCommon-release', ext: 'aar')
+    compile(name: 'ModernRobotics-release', ext: 'aar')
+    compile(name: 'Analytics-release', ext: 'aar')
+    compile(name: 'WirelessP2p-release', ext: 'aar')
     compile project(':SwerveRoboticsLibrary')
 }
