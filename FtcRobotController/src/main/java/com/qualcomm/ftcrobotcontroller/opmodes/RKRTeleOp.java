@@ -2,6 +2,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 public class RKRTeleOp extends OpMode {
     //Instance Variables / fields
@@ -11,6 +12,8 @@ public class RKRTeleOp extends OpMode {
     DcMotor motorLeftBack;
     DcMotor armShoulder;
     DcMotor armElbow;
+
+    Servo servoFlame;
 
     //Constants
     final float DEAD_ZONE = (float).15;
@@ -24,8 +27,10 @@ public class RKRTeleOp extends OpMode {
         motorLeftBack = hardwareMap.dcMotor.get("leftBack");
         motorRightFront.setDirection(DcMotor.Direction.REVERSE);
         motorRightBack.setDirection(DcMotor.Direction.REVERSE);
-        // motor reversal was already taken care of when we first ran autonomous
 
+        servoFlame = hardwareMap.servo.get("flame_servo");
+        // test to see if spin in the right direction
+        // if not, setDirection();
 
         armShoulder = hardwareMap.dcMotor.get("motor_shoulder");
         armShoulder.setDirection(DcMotor.Direction.REVERSE);
@@ -73,6 +78,14 @@ public class RKRTeleOp extends OpMode {
             armShoulder.setPower(0);
         }
 
+        if (gamepad2.a) {
+            servoFlame.setPosition(.6);
+        } else if (gamepad2.b) {
+            servoFlame.setPosition(.4);
+        } else {
+            servoFlame.setPosition(.5);
+        }
+        //continuous servo controlled by 2nd gamepad
 
     }
 }
