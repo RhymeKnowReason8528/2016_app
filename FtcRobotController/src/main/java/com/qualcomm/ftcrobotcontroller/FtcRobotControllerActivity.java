@@ -270,10 +270,11 @@ public class FtcRobotControllerActivity extends Activity {
         return true;
     }
     if (id==R.id.action_settings) {
-        // The string to launch this activity must match what's in AndroidManifest of FtcCommon for this activity.
-        Intent settingsIntent = new Intent("com.qualcomm.ftccommon.FtcRobotControllerSettingsActivity.intent.action.Launch");
-        startActivityForResult(settingsIntent, LaunchActivityConstantsList.FTC_ROBOT_CONTROLLER_ACTIVITY_CONFIGURE_ROBOT);
-        return true;
+      // The string to launch this activity must match what's in AndroidManifest of FtcCommon for this activity.
+      Intent settingsIntent = new Intent("com.qualcomm.ftccommon.FtcRobotControllerSettingsActivity.intent.action.Launch");
+      startActivityForResult(settingsIntent, LaunchActivityConstantsList.FTC_ROBOT_CONTROLLER_ACTIVITY_CONFIGURE_ROBOT);
+      return true;
+    }
     if (id == R.id.action_manual_control) {
         final String filename = utility.getFilenameFromPrefs(R.string.pref_hardware_config_filename, Utility.NO_FILE);
         // gets name of the configuration file
