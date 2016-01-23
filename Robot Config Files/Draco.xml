@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
 <Robot>
-    <MotorController name="Arm" serialNumber="AL00YD41">
+    <MotorController name="Arm" serialNumber="AL00YD4I">
         <Motor name="motor_shoulder" port="1" />
         <Motor name="motor_elbow" port="2" />
     </MotorController>
