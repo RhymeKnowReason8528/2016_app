@@ -14,6 +14,8 @@ public class RKRTeleOp extends OpMode {
     DcMotor armElbow;
 
     Servo servoFlame;
+    Servo leftWing;
+    Servo rightWing;
 
     //Constants
     final float DEAD_ZONE = (float).15;
@@ -29,6 +31,8 @@ public class RKRTeleOp extends OpMode {
         motorRightBack.setDirection(DcMotor.Direction.REVERSE);
 
         servoFlame = hardwareMap.servo.get("flame_servo");
+        rightWing = hardwareMap.servo.get("right_wing");
+        leftWing = hardwareMap.servo.get("left_wing");
         // test to see if spin in the right direction
         // if not, setDirection();
 
@@ -84,6 +88,18 @@ public class RKRTeleOp extends OpMode {
             servoFlame.setPosition(.4);
         } else {
             servoFlame.setPosition(.5);
+        }
+
+        if(gamepad2.left_trigger > 0.5) {
+            leftWing.setPosition(90);
+        } else if(gamepad2.left_bumper) {
+            leftWing.setPosition(0);
+        }
+
+        if(gamepad2.right_trigger > 0.5) {
+            rightWing.setPosition(0);
+        } else if (gamepad2.right_bumper) {
+            rightWing.setPosition(90);
         }
         //continuous servo controlled by 2nd gamepad
 
