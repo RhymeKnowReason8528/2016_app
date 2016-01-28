@@ -21,6 +21,13 @@ public class RKRTeleOp extends OpMode {
     final float DEAD_ZONE = (float).15;
 
     //OpMode required methods
+
+    double LEFT_WING_IN = 0.08;
+    double LEFT_WING_OUT = 0.5;
+
+    double RIGHT_WING_IN = 0.81;
+    double RIGHT_WING_OUT = 0;
+
     @Override
     public void init() {
         motorRightFront = hardwareMap.dcMotor.get("rightFront");
@@ -39,6 +46,9 @@ public class RKRTeleOp extends OpMode {
         armShoulder = hardwareMap.dcMotor.get("motor_shoulder");
         armShoulder.setDirection(DcMotor.Direction.REVERSE);
         armElbow = hardwareMap.dcMotor.get("motor_elbow");
+
+        rightWing.setPosition(RIGHT_WING_IN);
+        leftWing.setPosition(LEFT_WING_IN);
     }
 
     @Override
@@ -83,23 +93,23 @@ public class RKRTeleOp extends OpMode {
         }
 
         if (gamepad2.a) {
-            servoFlame.setPosition(.6);
+            servoFlame.setPosition(.9);
         } else if (gamepad2.b) {
-            servoFlame.setPosition(.4);
+            servoFlame.setPosition(.2);
         } else {
             servoFlame.setPosition(.5);
         }
 
         if(gamepad2.left_trigger > 0.5) {
-            leftWing.setPosition(90);
+            leftWing.setPosition(LEFT_WING_OUT);
         } else if(gamepad2.left_bumper) {
-            leftWing.setPosition(0);
+            leftWing.setPosition(LEFT_WING_IN);
         }
 
         if(gamepad2.right_trigger > 0.5) {
-            rightWing.setPosition(0);
+            rightWing.setPosition(RIGHT_WING_OUT);
         } else if (gamepad2.right_bumper) {
-            rightWing.setPosition(90);
+            rightWing.setPosition(RIGHT_WING_IN);
         }
         //continuous servo controlled by 2nd gamepad
 
