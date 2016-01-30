@@ -49,6 +49,7 @@ public class RKRTeleOp extends OpMode {
 
         rightWing.setPosition(RIGHT_WING_IN);
         leftWing.setPosition(LEFT_WING_IN);
+        servoFlame.setPosition(0.5);
     }
 
     @Override
