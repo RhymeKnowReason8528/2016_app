@@ -101,18 +101,17 @@ public class RKRTeleOp extends OpMode {
             servoFlame.setPosition(.5);
         }
 
-        if(gamepad2.left_trigger > 0.5) {
+        if(gamepad2.left_bumper) {//bumper
             leftWing.setPosition(LEFT_WING_OUT);
-        } else if(gamepad2.left_bumper) {
+        } else if(gamepad2.left_trigger > 0.5) {//trigger
             leftWing.setPosition(LEFT_WING_IN);
         }
 
-        if(gamepad2.right_trigger > 0.5) {
+        if(gamepad2.right_bumper) {//bumper
             rightWing.setPosition(RIGHT_WING_OUT);
-        } else if (gamepad2.right_bumper) {
+        } else if (gamepad2.right_trigger > 0.5) {//trigger
             rightWing.setPosition(RIGHT_WING_IN);
         }
         //continuous servo controlled by 2nd gamepad
-
     }
 }
