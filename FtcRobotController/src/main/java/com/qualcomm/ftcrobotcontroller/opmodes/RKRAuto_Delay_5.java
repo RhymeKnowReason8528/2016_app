@@ -29,8 +29,6 @@ public class RKRAuto_Delay_5 extends LinearOpMode {
     //math calculations used in program to determine distance traveled in encoder counts
     public void runOpMode() throws InterruptedException{
 
-        wait(5000);
-
         motorRightFront = hardwareMap.dcMotor.get("rightFront");
         motorRightBack = hardwareMap.dcMotor.get("rightBack");
         motorLeftFront = hardwareMap.dcMotor.get("leftFront");
@@ -57,6 +55,8 @@ public class RKRAuto_Delay_5 extends LinearOpMode {
         //initialize arm motors
 
         waitForStart();
+
+        Thread.sleep(1000);
 
         while (motorRightFront.getCurrentPosition() > -(int)COUNTS) {
             telemetry.addData("encoder count", motorRightFront.getCurrentPosition());
