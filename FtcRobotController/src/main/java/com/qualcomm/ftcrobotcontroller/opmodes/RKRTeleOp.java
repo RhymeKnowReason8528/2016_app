@@ -23,10 +23,10 @@ public class RKRTeleOp extends OpMode {
     //OpMode required methods
 
     double LEFT_WING_IN = 0.17;
-    double LEFT_WING_OUT = 0.7;
+    double LEFT_WING_OUT = 0.6;
 
     double RIGHT_WING_IN = 0.95;
-    double RIGHT_WING_OUT = 0;
+    double RIGHT_WING_OUT = 1;
 
     @Override
     public void init() {
