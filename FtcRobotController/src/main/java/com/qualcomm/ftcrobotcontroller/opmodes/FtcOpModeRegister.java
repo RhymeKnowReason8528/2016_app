@@ -88,6 +88,7 @@ public class FtcOpModeRegister implements OpModeRegister
     //manager.register("Encoder Test", EncoderTestOpMode.class);
       manager.register("WingServo Test", wingServoTest.class);
     manager.register("RKRAuto", RKRAuto.class);
+      manager.register("GyroTest", GyroTest.class);
 
     /*
      * Uncomment any of the following lines if you want to register an op mode.
