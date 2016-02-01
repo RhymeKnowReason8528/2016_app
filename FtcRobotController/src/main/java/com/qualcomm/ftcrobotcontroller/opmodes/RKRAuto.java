@@ -31,8 +31,8 @@ public class RKRAuto extends LinearOpMode {
         motorRightBack = hardwareMap.dcMotor.get("rightBack");
         motorLeftFront = hardwareMap.dcMotor.get("leftFront");
         motorLeftBack = hardwareMap.dcMotor.get("leftBack");
-        motorRightFront.setDirection(DcMotor.Direction.REVERSE);
-        motorRightBack.setDirection(DcMotor.Direction.REVERSE);
+        motorLeftFront.setDirection(DcMotor.Direction.REVERSE);
+        motorLeftBack.setDirection(DcMotor.Direction.REVERSE);
         //initialize drive motors
         //reversed the right motors just like teleOp
 
@@ -57,11 +57,12 @@ public class RKRAuto extends LinearOpMode {
         while (motorRightFront.getCurrentPosition() > -(int)COUNTS) {
             telemetry.addData("encoder count", motorRightFront.getCurrentPosition());
             telemetry.addData("Counts", -Math.abs((int) COUNTS));
-            motorRightFront.setPower(-.40);
-            motorRightBack.setPower(-.40);
-            motorLeftFront.setPower(-.40);
-            motorLeftBack.setPower(-.40);
+            motorRightFront.setPower(.40);
+            motorRightBack.setPower(.40);
+            motorLeftFront.setPower(.40);
+            motorLeftBack.setPower(.40);
             waitForNextHardwareCycle();
+            // take note, changed power to positive, and reversed previous motor side
         }
         // drives forward at a slow speed until the robot travels 6 feet
         // keep in mind that according to the orientation of the motors, negative powers result
