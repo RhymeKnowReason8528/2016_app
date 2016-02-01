@@ -17,5 +17,7 @@
 		<Servo name="left_wing" port="2" />
 		<Servo name="flame_servo" port="3" />
 	</ServoController>
-	
+    <DeviceInterfaceModule name="Device Interface Module 1" serialNumber="AI02RI69">
+        <Gyro name="gyro" port="0" />
+    </DeviceInterfaceModule>
 </Robot>
