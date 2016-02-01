@@ -89,6 +89,7 @@ public class FtcOpModeRegister implements OpModeRegister
       manager.register("WingServo Test", wingServoTest.class);
     manager.register("RKRAuto", RKRAuto.class);
       manager.register("GyroTest", GyroTest.class);
+      manager.register("10sec delay auto", RKR_Auto_delay_10.class);
 
     /*
      * Uncomment any of the following lines if you want to register an op mode.
