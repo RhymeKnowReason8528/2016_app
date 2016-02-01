@@ -34,8 +34,9 @@ public class RKRTeleOp extends OpMode {
         motorRightBack = hardwareMap.dcMotor.get("rightBack");
         motorLeftFront = hardwareMap.dcMotor.get("leftFront");
         motorLeftBack = hardwareMap.dcMotor.get("leftBack");
-        motorRightFront.setDirection(DcMotor.Direction.REVERSE);
-        motorRightBack.setDirection(DcMotor.Direction.REVERSE);
+
+        motorLeftFront.setDirection(DcMotor.Direction.REVERSE);
+        motorLeftBack.setDirection(DcMotor.Direction.REVERSE);
 
         servoFlame = hardwareMap.servo.get("flame_servo");
         rightWing = hardwareMap.servo.get("right_wing");
@@ -54,8 +55,8 @@ public class RKRTeleOp extends OpMode {
 
     @Override
     public void loop() {
-        double leftPower = gamepad1.left_stick_y * 0.75;
-        double rightPower = gamepad1.right_stick_y * 0.75;
+        double leftPower = -gamepad1.left_stick_y * 0.75;
+        double rightPower = -gamepad1.right_stick_y * 0.75;
 
         if(Math.abs(rightPower) > Math.abs(DEAD_ZONE)) {
             motorRightFront.setPower(rightPower);
