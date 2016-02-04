@@ -30,19 +30,25 @@ public class RKR_Auto_delay_10 extends LinearOpMode {
         motorRightBack = hardwareMap.dcMotor.get("rightBack");
         motorLeftFront = hardwareMap.dcMotor.get("leftFront");
         motorLeftBack = hardwareMap.dcMotor.get("leftBack");
+
         motorLeftFront.setDirection(DcMotor.Direction.REVERSE);
         motorLeftBack.setDirection(DcMotor.Direction.REVERSE);
         //initialize drive motors
         //reversed the right motors just like teleOp
-
+        armShoulder = hardwareMap.dcMotor.get("motor_shoulder");
+        armShoulder.setDirection(DcMotor.Direction.REVERSE);
+        armElbow = hardwareMap.dcMotor.get("motor_elbow");
+        //initialize arm motors
 
         motorRightFront.setMode(DcMotorController.RunMode.RESET_ENCODERS);
         motorLeftFront.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+        armElbow.setMode(DcMotorController.RunMode.RESET_ENCODERS);
         waitOneFullHardwareCycle();
         motorRightFront.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         motorLeftFront.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         motorRightBack.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         motorLeftBack.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
+        armElbow.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         waitOneFullHardwareCycle();
         //initialize encoders for front motors, let back motors run without encoders
 
@@ -53,15 +59,22 @@ public class RKR_Auto_delay_10 extends LinearOpMode {
 
         waitForStart();
 
-        Thread.sleep(1000);
+        while(armElbow.getCurrentPosition() < 500) {
+            armElbow.setPower(0.2);
+            waitForNextHardwareCycle();
+        }
 
-        while (motorRightFront.getCurrentPosition() > -(int)COUNTS) {
+        armElbow.setPower(0);
+
+        Thread.sleep(10000);
+
+        while (motorRightFront.getCurrentPosition() < (int)COUNTS) {
             telemetry.addData("encoder count", motorRightFront.getCurrentPosition());
             telemetry.addData("Counts", -Math.abs((int) COUNTS));
-            motorRightFront.setPower(.40);
-            motorRightBack.setPower(.40);
-            motorLeftFront.setPower(.40);
-            motorLeftBack.setPower(.40);
+            motorRightFront.setPower(.30);
+            motorRightBack.setPower(.30);
+            motorLeftFront.setPower(.30);
+            motorLeftBack.setPower(.30);
             waitForNextHardwareCycle();
             // take note, changed power to positive, and reversed previous motor side
         }
