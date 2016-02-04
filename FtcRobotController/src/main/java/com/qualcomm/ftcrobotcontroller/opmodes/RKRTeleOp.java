@@ -95,9 +95,9 @@ public class RKRTeleOp extends OpMode {
         }
 
         if (gamepad2.x) {
-            servoFlame.setPosition(.9);
-        } else if (gamepad2.b) {
             servoFlame.setPosition(.2);
+        } else if (gamepad2.b) {
+            servoFlame.setPosition(.9);
         } else {
             servoFlame.setPosition(.5);
         }
