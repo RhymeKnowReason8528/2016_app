@@ -1,5 +1,7 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
+import android.util.Log;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
@@ -36,31 +38,42 @@ public class RKRAuto extends LinearOpMode {
         //initialize drive motors
         //reversed the right motors just like teleOp
 
-
-        motorRightFront.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-        motorLeftFront.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-        waitOneFullHardwareCycle();
-        motorRightFront.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
-        motorLeftFront.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
-        motorRightBack.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
-        motorLeftBack.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
-        waitOneFullHardwareCycle();
-        //initialize encoders for front motors, let back motors run without encoders
-
         armShoulder = hardwareMap.dcMotor.get("motor_shoulder");
         armShoulder.setDirection(DcMotor.Direction.REVERSE);
         armElbow = hardwareMap.dcMotor.get("motor_elbow");
         //initialize arm motors
 
+        motorRightFront.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+        motorLeftFront.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+        armElbow.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+        waitOneFullHardwareCycle();
+        motorRightFront.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
+        motorLeftFront.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
+        motorRightBack.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
+        motorLeftBack.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
+        armElbow.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
+        waitOneFullHardwareCycle();
+        //initialize encoders for front motors, let back motors run without encoders
+
         waitForStart();
 
-        while (motorRightFront.getCurrentPosition() > -(int)COUNTS) {
+        while(armElbow.getCurrentPosition() < 500) {
+            armElbow.setPower(0.2);
+            Log.d("RKRAuto", "elbow position is " + armElbow.getCurrentPosition());
+            waitForNextHardwareCycle();
+        }
+
+        waitOneFullHardwareCycle();
+
+        armElbow.setPower(0);
+
+        while (motorRightFront.getCurrentPosition() < (int)COUNTS) {
             telemetry.addData("encoder count", motorRightFront.getCurrentPosition());
             telemetry.addData("Counts", -Math.abs((int) COUNTS));
-            motorRightFront.setPower(.40);
-            motorRightBack.setPower(.40);
-            motorLeftFront.setPower(.40);
-            motorLeftBack.setPower(.40);
+            motorRightFront.setPower(.30);
+            motorRightBack.setPower(.30);
+            motorLeftFront.setPower(.30);
+            motorLeftBack.setPower(.30);
             waitForNextHardwareCycle();
             // take note, changed power to positive, and reversed previous motor side
         }
