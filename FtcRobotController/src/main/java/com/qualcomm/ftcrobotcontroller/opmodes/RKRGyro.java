@@ -18,7 +18,7 @@ public class RKRGyro{
     DcMotor[] mRightMotorArray;
     DcMotor[] mLeftMotorArray;
 
-    enum Comparison{
+    public static enum Comparison{
         LESS_THAN{
             @Override
             public boolean evaluate(double x1, double x2) {
@@ -41,17 +41,23 @@ public class RKRGyro{
     LinearOpMode mOpMode;
 
 
-    public RKRGyro(ModernRoboticsI2cGyro gyro, DcMotor[] leftMotors, DcMotor[] rightMotors, LinearOpMode opMode) throws InterruptedException {
+    public RKRGyro(ModernRoboticsI2cGyro gyro, DcMotor[] leftMotors, DcMotor[] rightMotors, LinearOpMode opMode) {
         mOpMode = opMode;
         mGyro = gyro;
         mOpMode.telemetry.addData("calibrating", true);
-        mGyro.calibrate();
 
         mRightMotorArray = rightMotors;
         mLeftMotorArray = leftMotors;
+    }
 
-        while(mGyro.isCalibrating()){
-            Thread.sleep(50);
+    public void initialize () throws InterruptedException {
+        try {
+            mGyro.calibrate();
+            while(mGyro.isCalibrating()){
+                Thread.sleep(50);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         mOpMode.telemetry.addData("calibrating", false);
     }
@@ -76,10 +82,17 @@ public class RKRGyro{
 
             headingError = (adjustedTargetHeading - currentHeading);
             driveSteering = headingError*DRIVE_GAIN;
-            if(driveSteering > 1) {
-                driveSteering = 1;
-            } else if (driveSteering < 0.2) {
-                driveSteering = 0.2;
+            if(driveSteering > .4) {
+                driveSteering = .4;
+            } else if (driveSteering < -0.4) {
+                driveSteering = -0.4;
+            } else if (driveSteering < 0.2 && driveSteering > -.2) {
+                if(comparisonToUse == Comparison.LESS_THAN) {
+                    driveSteering = 0.4;
+                }
+                else {
+                    driveSteering = -0.4;
+                }
             }
             for(DcMotor motor: mRightMotorArray) {
                 motor.setPower(-driveSteering);
