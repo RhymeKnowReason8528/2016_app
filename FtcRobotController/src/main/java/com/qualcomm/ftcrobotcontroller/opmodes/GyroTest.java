@@ -1,11 +1,14 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
+import android.util.Log;
+
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.GyroSensor;
 
 import org.swerverobotics.library.SynchronousOpMode;
+import org.swerverobotics.library.TelemetryDashboardAndLog;
 
 /**
  * Created by RobotK on 1/30/2016.
@@ -21,6 +24,10 @@ public class GyroTest extends LinearOpMode {
     DcMotor motorLeftBack;
     DcMotor armShoulder;
     DcMotor armElbow;
+
+    TelemetryDashboardAndLog enhancedTelemetry = new TelemetryDashboardAndLog();
+
+    final String LOG_TAG = "gyro-log";
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -41,11 +48,26 @@ public class GyroTest extends LinearOpMode {
         gyroSensor = (ModernRoboticsI2cGyro)hardwareMap.gyroSensor.get("gyro");
         gyroUtility = new RKRGyro(gyroSensor, leftMotors, rightMotors, this);
 
+//        gyroUtility.initialize();
+
+        gyroSensor.calibrate();
+        //enhancedTelemetry.log.add("Calibration began. Calibration status: " + gyroSensor.isCalibrating());
+        Log.d(LOG_TAG, "Calibration began. Calibration status: " + gyroSensor.isCalibrating());
+        while(gyroSensor.isCalibrating()){
+            Thread.sleep(50);
+        }
+
+        enhancedTelemetry.log.add("Calibration finished.");
+
+       // for(int i = 0; i < 300; i++) {
+            enhancedTelemetry.log.add(Double.toString(gyroSensor.getIntegratedZValue()));
+         //   telemetry.addData("Gyro heading", gyroSensor.getIntegratedZValue());
+         //   Thread.sleep(10);
+        //}
+
         waitForStart();
-
-        telemetry.addData("Gyro heading", gyroSensor.getIntegratedZValue());
-
-
-        gyroUtility.turn(90);
+        gyroUtility.turn(360);
+        gyroUtility.turn(-360);
     }
 }
+
