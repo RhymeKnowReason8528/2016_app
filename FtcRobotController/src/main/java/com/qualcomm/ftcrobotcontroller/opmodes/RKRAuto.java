@@ -2,6 +2,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import android.util.Log;
 
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
@@ -9,6 +10,9 @@ import com.qualcomm.robotcore.hardware.DcMotorController;
 /**
  * Created by Robotics on 12/1/2015.
  * This is a simple autonomous program that drives the robot forward for 6 feet
+ *
+ * 2/17/16: added wait after start to allow for gyro calibration, removed calibration
+ *          from driver class.
  */
 public class RKRAuto extends LinearOpMode {
     DcMotor motorRightFront;
@@ -17,6 +21,9 @@ public class RKRAuto extends LinearOpMode {
     DcMotor motorLeftBack;
     DcMotor armShoulder;
     DcMotor armElbow;
+
+    ModernRoboticsI2cGyro gyroSensor;
+    RKRGyro gyroUtility;
 
     final static int TICKS_PER_ROTATION = 1440;
     final static int WHEEL_DIAMETER = 4;
@@ -38,6 +45,12 @@ public class RKRAuto extends LinearOpMode {
         //initialize drive motors
         //reversed the right motors just like teleOp
 
+        DcMotor[] leftMotors = {motorLeftFront, motorLeftBack};
+        DcMotor[] rightMotors = {motorRightFront, motorRightBack};
+
+        gyroSensor = (ModernRoboticsI2cGyro)hardwareMap.gyroSensor.get("gyro");
+        gyroUtility = new RKRGyro(gyroSensor, leftMotors, rightMotors, this);
+
         armShoulder = hardwareMap.dcMotor.get("motor_shoulder");
         armShoulder.setDirection(DcMotor.Direction.REVERSE);
         armElbow = hardwareMap.dcMotor.get("motor_elbow");
@@ -53,9 +66,11 @@ public class RKRAuto extends LinearOpMode {
         motorLeftBack.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         armElbow.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         waitOneFullHardwareCycle();
-        //initialize encoders for front motors, let back motors run without encoders
+        //initialize encoders for front motors, let back motors run without encoder
 
         waitForStart();
+        Thread.sleep(5000);
+        //After start pressed, waits 5 seconds for gyro calibration
 
         while(armElbow.getCurrentPosition() < 500) {
             armElbow.setPower(0.2);
@@ -75,7 +90,6 @@ public class RKRAuto extends LinearOpMode {
             motorLeftFront.setPower(.30);
             motorLeftBack.setPower(.30);
             waitForNextHardwareCycle();
-            // take note, changed power to positive, and reversed previous motor side
         }
         // drives forward at a slow speed until the robot travels 6 feet
         // keep in mind that according to the orientation of the motors, negative powers result
@@ -90,7 +104,11 @@ public class RKRAuto extends LinearOpMode {
         motorLeftBack.setPower(0);
         //make the motors stop spinning once encoder reaches desired value
 
+        gyroUtility.turn(45.0);
+        //Since we added a wait function inside the auto instead of the driver, turn should work
+
         telemetry.addData("encoder count", motorRightFront.getCurrentPosition());
+        telemetry.addData("gyro value", gyroSensor.getIntegratedZValue());
         //displays current encoder reading, testing to make sure that motors spin full distance
     }
 
