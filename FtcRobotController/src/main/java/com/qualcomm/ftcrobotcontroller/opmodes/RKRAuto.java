@@ -6,6 +6,7 @@ import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
+import com.qualcomm.robotcore.hardware.Servo;
 
 /**
  * Created by Robotics on 12/1/2015.
@@ -21,6 +22,7 @@ public class RKRAuto extends LinearOpMode {
     DcMotor motorLeftBack;
     DcMotor armShoulder;
     DcMotor armElbow;
+    Servo climberReleaser;
 
     ModernRoboticsI2cGyro gyroSensor;
     RKRGyro gyroUtility;
@@ -35,6 +37,9 @@ public class RKRAuto extends LinearOpMode {
     final static double COUNTS = TICKS_PER_ROTATION * ROTATIONS;
     //math calculations used in program to determine distance traveled in encoder counts
 
+    static final double CLIMBER_RELEASER_CLOSED = 0.8;
+    static final double CLIMBER_RELEASER_OPEN = 0.1;
+
     public void runOpMode() throws InterruptedException{
         motorRightFront = hardwareMap.dcMotor.get("rightFront");
         motorRightBack = hardwareMap.dcMotor.get("rightBack");
@@ -47,6 +52,9 @@ public class RKRAuto extends LinearOpMode {
 
         DcMotor[] leftMotors = {motorLeftFront, motorLeftBack};
         DcMotor[] rightMotors = {motorRightFront, motorRightBack};
+
+        climberReleaser = (Servo)hardwareMap.servo.get("climber_releaser");
+        climberReleaser.setPosition(CLIMBER_RELEASER_CLOSED);
 
         gyroSensor = (ModernRoboticsI2cGyro)hardwareMap.gyroSensor.get("gyro");
         gyroUtility = new RKRGyro(gyroSensor, leftMotors, rightMotors, this);
