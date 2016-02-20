@@ -15,7 +15,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  * 2/17/16: added wait after start to allow for gyro calibration, removed calibration
  *          from driver class.
  */
-public class RKRAuto extends LinearOpMode {
+public class BlueShelter extends LinearOpMode {
     DcMotor motorRightFront;
     DcMotor motorRightBack;
     DcMotor motorLeftFront;
@@ -30,18 +30,18 @@ public class RKRAuto extends LinearOpMode {
     ModernRoboticsI2cGyro gyroSensor;
     RKRGyro gyroUtility;
 
+    static final String AUTON_TAG = "Autonomous";
+
+    double[] distances = {84.0, 10}; //Array of distances to go, specified in inches
+    double[] turns = {20.0}; //Array of turns, in degrees
+
     final static int TICKS_PER_ROTATION = 1440;
     final static int WHEEL_DIAMETER = 4;
-    final static int DISTANCE = 72;
     //values in term of inches
 
     final static double CIRCUMFERENCE = Math.PI*WHEEL_DIAMETER;
-    final static double ROTATIONS = DISTANCE/CIRCUMFERENCE;
-    final static double COUNTS = TICKS_PER_ROTATION * ROTATIONS;
-    //math calculations used in program to determine distance traveled in encoder counts
 
-    static final double CLIMBER_RELEASER_CLOSED = 0.48;
-    static final double CLIMBER_RELEASER_OPEN = 0.3;
+    //math calculations used in program to determine distance traveled in encoder counts
 
     public void runOpMode() throws InterruptedException{
         motorRightFront = hardwareMap.dcMotor.get("rightFront");
@@ -60,7 +60,7 @@ public class RKRAuto extends LinearOpMode {
         servoFlame = hardwareMap.servo.get("flame_servo");
         rightWing = hardwareMap.servo.get("right_wing");
         leftWing = hardwareMap.servo.get("left_wing");
-        climberReleaser.setPosition(CLIMBER_RELEASER_CLOSED);
+        climberReleaser.setPosition(RKRAuto.CLIMBER_RELEASER_CLOSED);
         servoFlame.setPosition(0.5);
         rightWing.setPosition(0.5);
         leftWing.setPosition(0.5);
@@ -98,31 +98,48 @@ public class RKRAuto extends LinearOpMode {
         waitOneFullHardwareCycle();
 
         armElbow.setPower(0);
+        Log.d(AUTON_TAG, Double.toString(Math.max(distances.length, turns.length)));
+        for (int i = 0; i < Math.max(distances.length, turns.length); i++) {
+            Log.d(AUTON_TAG, "Running distance " + i);
+            if(i < distances.length) {
+                Log.d(AUTON_TAG, "Distance " + i + " not skipped.");
+                double rotations = distances[i] / CIRCUMFERENCE;
+                double counts = TICKS_PER_ROTATION * rotations;
+                double adjustedCounts = counts + motorRightFront.getCurrentPosition();
+                RKRGyro.Comparison comparison;
+                double multiplier;
+                if(motorRightFront.getCurrentPosition() < adjustedCounts) {
+                    comparison = RKRGyro.Comparison.LESS_THAN;
+                    multiplier = 1;
+                } else {
+                    comparison = RKRGyro.Comparison.GREATER_THAN;
+                    multiplier = -1;
+                }
 
-        while (motorRightFront.getCurrentPosition() < (int)COUNTS) {
-            telemetry.addData("encoder count", motorRightFront.getCurrentPosition());
-            telemetry.addData("Counts", -Math.abs((int) COUNTS));
-            motorRightFront.setPower(.30);
-            motorRightBack.setPower(.30);
-            motorLeftFront.setPower(.30);
-            motorLeftBack.setPower(.30);
-            waitForNextHardwareCycle();
+                while (comparison.evaluate(motorRightFront.getCurrentPosition(), counts)) {
+                    telemetry.addData("encoder count", motorRightFront.getCurrentPosition());
+                    telemetry.addData("Counts", -Math.abs((int) counts));
+                    motorRightFront.setPower(.30 * multiplier);
+                    motorRightBack.setPower(.30 * multiplier);
+                    motorLeftFront.setPower(.30 * multiplier);
+                    motorLeftBack.setPower(.30 * multiplier);
+                    waitForNextHardwareCycle();
+                }
+                motorRightFront.setPower(0);
+                motorRightBack.setPower(0);
+                motorLeftFront.setPower(0);
+                motorLeftBack.setPower(0);
+                waitOneFullHardwareCycle();
+            }
+
+            if(i < turns.length) {
+                Log.d(AUTON_TAG, "Turn " + i + " not skipped.");
+                gyroUtility.turn(turns[i]);
+            }
         }
-        // drives forward at a slow speed until the robot travels 6 feet
-        // keep in mind that according to the orientation of the motors, negative powers result
-        // in forward movement. This is relevant in our teleOp program also. when the joystick is
-        // pressed forward, it actually returns a NEGATIVE value.
 
-        waitOneFullHardwareCycle();
-
-        motorRightFront.setPower(0);
-        motorRightBack.setPower(0);
-        motorLeftFront.setPower(0);
-        motorLeftBack.setPower(0);
-        //make the motors stop spinning once encoder reaches desired value
-
-        gyroUtility.turn(45.0);
-        //Since we added a wait function inside the auto instead of the driver, turn should work
+        Thread.sleep(700);
+        climberReleaser.setPosition(RKRAuto.CLIMBER_RELEASER_OPEN);
 
         telemetry.addData("encoder count", motorRightFront.getCurrentPosition());
         telemetry.addData("gyro value", gyroSensor.getIntegratedZValue());

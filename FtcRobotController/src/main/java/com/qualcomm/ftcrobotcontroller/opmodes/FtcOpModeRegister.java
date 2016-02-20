@@ -86,11 +86,11 @@ public class FtcOpModeRegister implements OpModeRegister
     //manager.register("RKR IR Test", RKRIrTest.class);
     //manager.register("RKR TankBot TeleOp", TankBotTeleOp.class);
     //manager.register("Encoder Test", EncoderTestOpMode.class);
-      manager.register("WingServo Test", wingServoTest.class);
+//      manager.register("WingServo Test", wingServoTest.class);
     manager.register("RKRAuto", RKRAuto.class);
-      manager.register("GyroTest", GyroTest.class);
+//      manager.register("GyroTest", GyroTest.class);
       manager.register("10sec delay auto", RKR_Auto_delay_10.class);
-
+      manager.register("BlueShelter", BlueShelter.class);
     /*
      * Uncomment any of the following lines if you want to register an op mode.
      */
