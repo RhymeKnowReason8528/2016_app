@@ -32,10 +32,11 @@ public class BlueShelter extends LinearOpMode {
 
     static final String AUTON_TAG = "Autonomous";
 
-    double[] distances = {84.0, 10}; //Array of distances to go, specified in inches
-    double[] turns = {20.0}; //Array of turns, in degrees
+    double[] distances = {87.0, 7}; //Array of distances to go, specified in inches
+    double[] turns = {25.0}; //Array of turns, in degrees
 
-    final static int TICKS_PER_ROTATION = 1440;
+    final static int TICKS_PER_ROTATION_TETRIX = 1440;
+    final static int TICKS_PER_ROTATION_ANDYMARK_60 = 1680;
     final static int WHEEL_DIAMETER = 4;
     //values in term of inches
 
@@ -67,6 +68,7 @@ public class BlueShelter extends LinearOpMode {
 
         gyroSensor = (ModernRoboticsI2cGyro)hardwareMap.gyroSensor.get("gyro");
         gyroUtility = new RKRGyro(gyroSensor, leftMotors, rightMotors, this);
+        gyroUtility.initialize();
 
         armShoulder = hardwareMap.dcMotor.get("motor_shoulder");
         armShoulder.setDirection(DcMotor.Direction.REVERSE);
@@ -76,38 +78,50 @@ public class BlueShelter extends LinearOpMode {
         motorRightFront.setMode(DcMotorController.RunMode.RESET_ENCODERS);
         motorLeftFront.setMode(DcMotorController.RunMode.RESET_ENCODERS);
         armElbow.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+        armShoulder.setMode(DcMotorController.RunMode.RESET_ENCODERS);
         waitOneFullHardwareCycle();
+        waitOneFullHardwareCycle(); // Having two of these is NOT a typo. The encoders wouldn't reset reliably otherwise.
         motorRightFront.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         motorLeftFront.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         motorRightBack.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         motorLeftBack.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         armElbow.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
+        armShoulder.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         waitOneFullHardwareCycle();
+
+        Log.d(AUTON_TAG, "Right Front Motor: " + Integer.toString(motorRightFront.getCurrentPosition()));
+        Log.d(AUTON_TAG, "Elbow Motor: " + Integer.toString(armElbow.getCurrentPosition()));
+        Log.d(AUTON_TAG, "Shoulder Motor: " + Integer.toString(armShoulder.getCurrentPosition()));
+
+        telemetry.addData("Right Front Motor", motorRightFront.getCurrentPosition());
+        telemetry.addData("Elbow Motor", armElbow.getCurrentPosition());
+        telemetry.addData("Shoulder Motor", armShoulder.getCurrentPosition());
+
         //initialize encoders for front motors, let back motors run without encoder
 
+        Thread.sleep(7000);
         waitForStart();
-        Thread.sleep(5000);
-        //After start pressed, waits 5 seconds for gyro calibration
+        //After init pressed, waits 5 seconds for gyro calibration
 
         while(armElbow.getCurrentPosition() < 500) {
             armElbow.setPower(0.2);
-            Log.d("RKRAuto", "elbow position is " + armElbow.getCurrentPosition());
+            Log.d(AUTON_TAG, "elbow position is " + armElbow.getCurrentPosition());
             waitForNextHardwareCycle();
         }
-
         waitOneFullHardwareCycle();
-
         armElbow.setPower(0);
+
         Log.d(AUTON_TAG, Double.toString(Math.max(distances.length, turns.length)));
         for (int i = 0; i < Math.max(distances.length, turns.length); i++) {
             Log.d(AUTON_TAG, "Running distance " + i);
             if(i < distances.length) {
                 Log.d(AUTON_TAG, "Distance " + i + " not skipped.");
                 double rotations = distances[i] / CIRCUMFERENCE;
-                double counts = TICKS_PER_ROTATION * rotations;
+                double counts = TICKS_PER_ROTATION_TETRIX * rotations;
                 double adjustedCounts = counts + motorRightFront.getCurrentPosition();
                 RKRGyro.Comparison comparison;
                 double multiplier;
+                int currentPosition = motorRightFront.getCurrentPosition();
                 if(motorRightFront.getCurrentPosition() < adjustedCounts) {
                     comparison = RKRGyro.Comparison.LESS_THAN;
                     multiplier = 1;
@@ -116,13 +130,13 @@ public class BlueShelter extends LinearOpMode {
                     multiplier = -1;
                 }
 
-                while (comparison.evaluate(motorRightFront.getCurrentPosition(), counts)) {
+                while (comparison.evaluate(motorRightFront.getCurrentPosition(), adjustedCounts)) {
                     telemetry.addData("encoder count", motorRightFront.getCurrentPosition());
                     telemetry.addData("Counts", -Math.abs((int) counts));
-                    motorRightFront.setPower(.30 * multiplier);
-                    motorRightBack.setPower(.30 * multiplier);
-                    motorLeftFront.setPower(.30 * multiplier);
-                    motorLeftBack.setPower(.30 * multiplier);
+                    motorRightFront.setPower(.22 * multiplier);
+                    motorRightBack.setPower(.22 * multiplier);
+                    motorLeftFront.setPower(.22 * multiplier);
+                    motorLeftBack.setPower(.22 * multiplier);
                     waitForNextHardwareCycle();
                 }
                 motorRightFront.setPower(0);
@@ -130,6 +144,8 @@ public class BlueShelter extends LinearOpMode {
                 motorLeftFront.setPower(0);
                 motorLeftBack.setPower(0);
                 waitOneFullHardwareCycle();
+
+                Thread.sleep(1500);
             }
 
             if(i < turns.length) {
@@ -137,6 +153,13 @@ public class BlueShelter extends LinearOpMode {
                 gyroUtility.turn(turns[i]);
             }
         }
+
+        while(armShoulder.getCurrentPosition() > -2.2 * TICKS_PER_ROTATION_ANDYMARK_60) {  //5 Rotations is about 1/4 rotation of arm (20:1 gear ratio)
+            armShoulder.setPower(-0.6);
+            Log.d(AUTON_TAG, "Shoulder position is " + armShoulder.getCurrentPosition());
+            waitForNextHardwareCycle();
+        }
+        armShoulder.setPower(0);
 
         Thread.sleep(700);
         climberReleaser.setPosition(RKRAuto.CLIMBER_RELEASER_OPEN);
