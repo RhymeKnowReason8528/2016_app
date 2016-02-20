@@ -37,8 +37,8 @@ public class RKRAuto extends LinearOpMode {
     final static double COUNTS = TICKS_PER_ROTATION * ROTATIONS;
     //math calculations used in program to determine distance traveled in encoder counts
 
-    static final double CLIMBER_RELEASER_CLOSED = 0.8;
-    static final double CLIMBER_RELEASER_OPEN = 0.1;
+    static final double CLIMBER_RELEASER_CLOSED = 0.48;
+    static final double CLIMBER_RELEASER_OPEN = 0.3;
 
     public void runOpMode() throws InterruptedException{
         motorRightFront = hardwareMap.dcMotor.get("rightFront");
