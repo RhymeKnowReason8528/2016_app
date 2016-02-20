@@ -1,5 +1,7 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
+import android.util.Log;
+
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -13,6 +15,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 public class RKRGyro{
 
+    public static final String RKR_GYRO_TAG = "RKRGyro";
     ModernRoboticsI2cGyro mGyro;
 
     DcMotor[] mRightMotorArray;
@@ -76,9 +79,12 @@ public class RKRGyro{
             comparisonToUse = Comparison.GREATER_THAN;
         }
 
+       Log.d(RKR_GYRO_TAG, "Initial gyro position: " + currentHeading);
+
         while (comparisonToUse.evaluate(currentHeading, adjustedTargetHeading)) {
             mOpMode.telemetry.clearData();
             mOpMode.telemetry.addData("Gyro heading", mGyro.getIntegratedZValue());
+            Log.d(RKR_GYRO_TAG, "Current gyro position: " + Double.toString(currentHeading));
 
             headingError = (adjustedTargetHeading - currentHeading);
             driveSteering = headingError*DRIVE_GAIN;
@@ -111,6 +117,7 @@ public class RKRGyro{
         for(DcMotor motor: mLeftMotorArray) {
             motor.setPower(0);
         }
+        Log.d(RKR_GYRO_TAG, "Final gyro position: " + Integer.toString(mGyro.getIntegratedZValue()));
         return true;
     }
 }
