@@ -140,23 +140,30 @@ public class RKRTeleOp extends OpMode {
             leftWing.setPosition(.9);
         } else if(gamepad2.left_trigger > 0.5) {//trigger
             leftWing.setPosition(.2);
+        } else {
+            leftWing.setPosition(.5);
         }
 
         if(gamepad2.right_bumper) {//bumper
-            rightWing.setPosition(.9);
-        } else if (gamepad2.right_trigger > 0.5) {//trigger
             rightWing.setPosition(.2);
+        } else if (gamepad2.right_trigger > 0.5) {//trigger
+            rightWing.setPosition(.9);
+        } else {
+            rightWing.setPosition(.5);
         }
 
         if(gamepad2.y && !wasReleaseButtonPressed) { // This should only trigger once per button press
             if(isClimberReleaserOpen) {
                 climberReleaser.setPosition(RKRAuto.CLIMBER_RELEASER_CLOSED);
+                isClimberReleaserOpen = false;
             } else {
                 climberReleaser.setPosition(RKRAuto.CLIMBER_RELEASER_OPEN);
+                isClimberReleaserOpen = true;
             }
         }
 
         wasReleaseButtonPressed = gamepad2.y;
+
         //continuous servo controlled by 2nd gamepad
     }
 }
