@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 /**
  * Created by Robotics on 12/1/2015.
- * This is a simple autonomous program that drives the robot forward for 6 feet
+ * Autonomous routine for the BLUE alliance, that drives straight forward, turns a bit, and drops the climbers in the shelter.
  *
  * 2/17/16: added wait after start to allow for gyro calibration, removed calibration
  *          from driver class.
