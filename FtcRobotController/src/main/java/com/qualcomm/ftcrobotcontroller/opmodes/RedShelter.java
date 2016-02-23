@@ -32,7 +32,7 @@ public class RedShelter extends LinearOpMode {
 
     static final String AUTON_TAG = "Autonomous";
 
-    double[] distances = {87.0, 7}; //Array of distances to go, specified in inches
+    double[] distances = {87.0, 12}; //Array of distances to go, specified in inches
     double[] turns = {-25.0}; //Array of turns, in degrees
 
     final static int TICKS_PER_ROTATION_TETRIX = 1440;
