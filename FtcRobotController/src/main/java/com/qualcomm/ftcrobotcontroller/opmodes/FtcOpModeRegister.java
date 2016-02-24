@@ -92,6 +92,8 @@ public class FtcOpModeRegister implements OpModeRegister
       manager.register("10sec delay auto", RKR_Auto_delay_10.class);
       manager.register("BlueShelter", BlueShelter.class);
       manager.register("RedShelter", RedShelter.class);
+      manager.register("WaitBlueShelter", WaitBlueShelter.class);
+      manager.register("WaitRedShelter", WaitRedShelter.class);
 //      manager.register("Encoder test", EncoderTest.class);
     /*
      * Uncomment any of the following lines if you want to register an op mode.
