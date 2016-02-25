@@ -133,10 +133,10 @@ public class BlueShelter extends LinearOpMode {
                 while (comparison.evaluate(motorRightFront.getCurrentPosition(), adjustedCounts)) {
                     telemetry.addData("encoder count", motorRightFront.getCurrentPosition());
                     telemetry.addData("Counts", -Math.abs((int) counts));
-                    motorRightFront.setPower(.22 * multiplier);
-                    motorRightBack.setPower(.22 * multiplier);
-                    motorLeftFront.setPower(.22 * multiplier);
-                    motorLeftBack.setPower(.22 * multiplier);
+                    motorRightFront.setPower(.17 * multiplier);
+                    motorRightBack.setPower(.17 * multiplier);
+                    motorLeftFront.setPower(.17 * multiplier);
+                    motorLeftBack.setPower(.17 * multiplier);
                     waitForNextHardwareCycle();
                 }
                 motorRightFront.setPower(0);
