@@ -1,9 +1,14 @@
-package com.qualcomm.ftcrobotcontroller.opmodes;
+package org.usfirst.ftc.rhymeknowreason;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 
+import org.swerverobotics.library.interfaces.Autonomous;
+import org.swerverobotics.library.interfaces.Disabled;
+
+@Autonomous(name = "Encoder Algorithm Test")
+@Disabled
 public class EncoderTestOpMode extends LinearOpMode{
     DcMotor motor;
 

@@ -1,10 +1,9 @@
-package com.qualcomm.ftcrobotcontroller.opmodes;
+package org.usfirst.ftc.rhymeknowreason;
 
 import android.util.Log;
 
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 /**

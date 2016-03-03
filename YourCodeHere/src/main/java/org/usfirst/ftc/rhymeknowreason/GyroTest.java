@@ -1,18 +1,20 @@
-package com.qualcomm.ftcrobotcontroller.opmodes;
+package org.usfirst.ftc.rhymeknowreason;
 
 import android.util.Log;
 
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.GyroSensor;
 
-import org.swerverobotics.library.SynchronousOpMode;
 import org.swerverobotics.library.TelemetryDashboardAndLog;
+import org.swerverobotics.library.interfaces.Autonomous;
+import org.swerverobotics.library.interfaces.Disabled;
 
 /**
  * Created by RobotK on 1/30/2016.
  */
+@Autonomous(name = "Gyro Test")
+@Disabled
 public class GyroTest extends LinearOpMode {
 
     ModernRoboticsI2cGyro gyroSensor;

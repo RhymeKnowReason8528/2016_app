@@ -33,85 +33,35 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
+
 import org.swerverobotics.library.internal.AnnotatedOpModeRegistrar;
 
 /**
  * Register Op Modes
  */
-public class FtcOpModeRegister implements OpModeRegister 
-    {
-  /**
+public class FtcOpModeRegister implements OpModeRegister {
+    /**
      * The Op Mode Manager will call this method when it wants a list of all available op modes.
      * OpModes which are registered during this call will form the contents of the OpMode
      * list on the driver station.
-   *
+     * <p/>
      * There are two ways you can register an OpMode.
-     *
+     * <p/>
      * 1)   Manually, by calling manager.register(displayName, class) here, where
-     *      displayName is the name you want to show up in on the driver station
-     *      and class is the class which should be instantiated to service that OpMode,
-     *
-     * 2)   Dynamically, by annotating your OpModes with @Autonomous or @TeleOp annotations,  
-     *      or using a static @OpModeRegistrar method.
+     * displayName is the name you want to show up in on the driver station
+     * and class is the class which should be instantiated to service that OpMode,
+     * <p/>
+     * 2)   Dynamically, by annotating your OpModes with @Autonomous or @TeleOp annotations,
+     * or using a static @OpModeRegistrar method.
      *
      * @param manager the manager to use for manual registration
-     *
      * @see org.swerverobotics.library.interfaces.Autonomous
      * @see org.swerverobotics.library.interfaces.TeleOp
      * @see org.swerverobotics.library.interfaces.Disabled
      * @see org.swerverobotics.library.interfaces.OpModeRegistrar
      * @see org.swerverobotics.library.examples.SynchTeleOp
-   */
-  public void register(OpModeManager manager) 
-    {
-    AnnotatedOpModeRegistrar.register(manager);
-
-    /*
-     * Uncomment any of the following lines if you want to register an op mode,
-     * or do that registration in a static method annotated as @OpModeRegistrar.
      */
-
-//    manager.register("NullOp", NullOp.class);
-
-
-//    manager.register("MatrixK9TeleOp", MatrixK9TeleOp.class);
-//    manager.register("K9Line", K9Line.class);
-//    manager.register("K9TeleOp", K9TeleOp.class);
-//    manager.register ("PushBotAuto", PushBotAuto.class);
-//    manager.register ("PushBotManual", PushBotManual.class);
-
-    //Our own OpModes
-
-    manager.register("RKR TeleOp", RKRTeleOp.class);
-    //manager.register("RKR IR Test", RKRIrTest.class);
-    //manager.register("RKR TankBot TeleOp", TankBotTeleOp.class);
-    //manager.register("Encoder Test", EncoderTestOpMode.class);
-//      manager.register("WingServo Test", wingServoTest.class);
-    manager.register("RKRAuto", RKRAuto.class);
-//      manager.register("GyroTest", GyroTest.class);
-      manager.register("10sec delay auto", RKR_Auto_delay_10.class);
-      manager.register("BlueShelter", BlueShelter.class);
-      manager.register("RedShelter", RedShelter.class);
-      manager.register("WaitBlueShelter", WaitBlueShelter.class);
-      manager.register("WaitRedShelter", WaitRedShelter.class);
-//      manager.register("Encoder test", EncoderTest.class);
-    /*
-     * Uncomment any of the following lines if you want to register an op mode.
-     */
-    //manager.register("MR Gyro Test", MRGyroTest.class);
-
-    //manager.register("MR Gyro Test", MRGyroTest.class);
-    //manager.register("AdafruitRGBExample", AdafruitRGBExample.class);
-    //manager.register("ColorSensorDriver", ColorSensorDriver.class);
-
-    //manager.register("IrSeekerOp", IrSeekerOp.class);
-    //manager.register("CompassCalibration", CompassCalibration.class);
-    //manager.register("I2cAddressChangeExample", LinearI2cAddressChange.class);
-
-
-    //manager.register("NxtTeleOp", NxtTeleOp.class);
-    
-    //manager.register("LinearK9TeleOp", LinearK9TeleOp.class);
-    //manager.register("LinearIrExample", LinearIrExample.class);
-  }
+    public void register(OpModeManager manager) {
+        AnnotatedOpModeRegistrar.register(manager);
+    }
 }

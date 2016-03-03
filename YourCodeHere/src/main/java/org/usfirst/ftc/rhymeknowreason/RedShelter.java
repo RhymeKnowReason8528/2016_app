@@ -1,4 +1,4 @@
-package com.qualcomm.ftcrobotcontroller.opmodes;
+package org.usfirst.ftc.rhymeknowreason;
 
 import android.util.Log;
 
@@ -8,6 +8,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.swerverobotics.library.interfaces.Autonomous;
+
 /**
  * Created by Robotics on 12/1/2015.
  * Autonomous routine for the RED alliance, that drives straight forward, turns a bit, and drops the climbers in the shelter.
@@ -15,6 +17,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  * 2/17/16: added wait after start to allow for gyro calibration, removed calibration
  *          from driver class.
  */
+@Autonomous(name = "Red Shelter Autonomous")
 public class RedShelter extends LinearOpMode {
     DcMotor motorRightFront;
     DcMotor motorRightBack;

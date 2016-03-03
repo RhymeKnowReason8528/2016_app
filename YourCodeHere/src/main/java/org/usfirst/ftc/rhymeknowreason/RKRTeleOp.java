@@ -1,4 +1,4 @@
-package com.qualcomm.ftcrobotcontroller.opmodes;
+package org.usfirst.ftc.rhymeknowreason;
 
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -6,6 +6,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.swerverobotics.library.interfaces.TeleOp;
+
+@TeleOp(name = "TeleOp")
 public class RKRTeleOp extends OpMode {
     //Instance Variables / fields
     DcMotor motorRightFront;
