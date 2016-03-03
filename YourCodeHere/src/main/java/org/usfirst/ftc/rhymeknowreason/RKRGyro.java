@@ -40,10 +40,10 @@ public class RKRGyro{
     Comparison comparisonToUse;
 
     final double DRIVE_GAIN = .01;
-    LinearOpMode mOpMode;
+    BaseOpmode mOpMode;
 
 
-    public RKRGyro(ModernRoboticsI2cGyro gyro, DcMotor[] leftMotors, DcMotor[] rightMotors, LinearOpMode opMode) {
+    public RKRGyro(ModernRoboticsI2cGyro gyro, DcMotor[] leftMotors, DcMotor[] rightMotors, BaseOpmode opMode) {
         mOpMode = opMode;
         mGyro = gyro;
         mOpMode.telemetry.addData("calibrating", true);
@@ -81,7 +81,6 @@ public class RKRGyro{
        Log.d(RKR_GYRO_TAG, "Initial gyro position: " + currentHeading);
 
         while (comparisonToUse.evaluate(currentHeading, adjustedTargetHeading)) {
-            mOpMode.telemetry.clearData();
             mOpMode.telemetry.addData("Gyro heading", mGyro.getIntegratedZValue());
             Log.d(RKR_GYRO_TAG, "Current gyro position: " + Double.toString(currentHeading));
 
@@ -107,7 +106,6 @@ public class RKRGyro{
             }
 
             currentHeading = mGyro.getIntegratedZValue();
-            mOpMode.waitForNextHardwareCycle();
         }
 
         for(DcMotor motor: mRightMotorArray) {
