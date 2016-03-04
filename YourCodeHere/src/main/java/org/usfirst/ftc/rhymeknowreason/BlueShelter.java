@@ -26,8 +26,6 @@ public class BlueShelter extends BaseOpmode {
         distances.add(new Double(7));
         turns.add(new Double(25));
 
-        //initialize encoders for front motors, let back motors run without encoder
-
         Thread.sleep(7000);
         waitForStart();
         //After init pressed, waits 5 seconds for gyro calibration
