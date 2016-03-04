@@ -9,14 +9,12 @@ import org.swerverobotics.library.interfaces.Disabled;
 
 @Autonomous(name = "Encoder Algorithm Test")
 @Disabled
-public class EncoderTestOpMode extends LinearOpMode{
+public class EncoderTestOpMode extends BaseOpmode{
     DcMotor motor;
 
-    @Override
     public void runOpMode() throws InterruptedException {
         motor = hardwareMap.dcMotor.get("motor");
         motor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-        waitOneFullHardwareCycle();
         motor.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
         waitForStart();
         motor.setPower(0.50);
@@ -24,7 +22,6 @@ public class EncoderTestOpMode extends LinearOpMode{
             telemetry.addData("Motor Status", "running");
         }
         telemetry.addData("Motor status","slowing");
-        waitForNextHardwareCycle();
         motor.setPower(0.2);
         while(motor.getCurrentPosition() < 11200) { }
         motor.setPower(0);

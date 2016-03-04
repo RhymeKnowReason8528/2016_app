@@ -18,7 +18,7 @@ import org.swerverobotics.library.interfaces.Autonomous;
  *          from driver class.
  */
 @Autonomous(name = "Wait Red Shelter Autonomous")
-public class WaitRedShelter extends LinearOpMode {
+public class WaitRedShelter extends BaseOpmode {
     DcMotor motorRightFront;
     DcMotor motorRightBack;
     DcMotor motorLeftFront;
@@ -82,8 +82,7 @@ public class WaitRedShelter extends LinearOpMode {
         motorLeftFront.setMode(DcMotorController.RunMode.RESET_ENCODERS);
         armElbow.setMode(DcMotorController.RunMode.RESET_ENCODERS);
         armShoulder.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-        waitOneFullHardwareCycle();
-        waitOneFullHardwareCycle(); // Having two of these is NOT a typo. The encoders wouldn't reset reliably otherwise.
+
         motorRightFront.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         motorLeftFront.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         motorRightBack.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
@@ -112,9 +111,7 @@ public class WaitRedShelter extends LinearOpMode {
         while(armElbow.getCurrentPosition() < 500) {
             armElbow.setPower(0.2);
             Log.d(AUTON_TAG, "elbow position is " + armElbow.getCurrentPosition());
-            waitForNextHardwareCycle();
         }
-        waitOneFullHardwareCycle();
         armElbow.setPower(0);
 
         Log.d(AUTON_TAG, Double.toString(Math.max(distances.length, turns.length)));
@@ -143,13 +140,11 @@ public class WaitRedShelter extends LinearOpMode {
                     motorRightBack.setPower(.22 * multiplier);
                     motorLeftFront.setPower(.22 * multiplier);
                     motorLeftBack.setPower(.22 * multiplier);
-                    waitForNextHardwareCycle();
                 }
                 motorRightFront.setPower(0);
                 motorRightBack.setPower(0);
                 motorLeftFront.setPower(0);
                 motorLeftBack.setPower(0);
-                waitOneFullHardwareCycle();
 
                 Thread.sleep(1500);
             }
@@ -163,7 +158,6 @@ public class WaitRedShelter extends LinearOpMode {
         while(armShoulder.getCurrentPosition() > -2.2 * TICKS_PER_ROTATION_ANDYMARK_60) {  //5 Rotations is about 1/4 rotation of arm (20:1 gear ratio)
             armShoulder.setPower(-0.6);
             Log.d(AUTON_TAG, "Shoulder position is " + armShoulder.getCurrentPosition());
-            waitForNextHardwareCycle();
         }
         armShoulder.setPower(0);
 

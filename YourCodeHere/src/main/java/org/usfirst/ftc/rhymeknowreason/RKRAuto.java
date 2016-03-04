@@ -18,7 +18,7 @@ import org.swerverobotics.library.interfaces.Autonomous;
  *          from driver class.
  */
 @Autonomous(name = "Parking Zone Autonomous")
-public class RKRAuto extends LinearOpMode {
+public class RKRAuto extends BaseOpmode {
     DcMotor motorRightFront;
     DcMotor motorRightBack;
     DcMotor motorLeftFront;
@@ -79,13 +79,11 @@ public class RKRAuto extends LinearOpMode {
         motorRightFront.setMode(DcMotorController.RunMode.RESET_ENCODERS);
         motorLeftFront.setMode(DcMotorController.RunMode.RESET_ENCODERS);
         armElbow.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-        waitOneFullHardwareCycle();
         motorRightFront.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         motorLeftFront.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         motorRightBack.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         motorLeftBack.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
         armElbow.setMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
-        waitOneFullHardwareCycle();
         //initialize encoders for front motors, let back motors run without encoder
 
         waitForStart();
@@ -95,10 +93,7 @@ public class RKRAuto extends LinearOpMode {
         while(armElbow.getCurrentPosition() < 500) {
             armElbow.setPower(0.2);
             Log.d("RKRAuto", "elbow position is " + armElbow.getCurrentPosition());
-            waitForNextHardwareCycle();
         }
-
-        waitOneFullHardwareCycle();
 
         armElbow.setPower(0);
 
@@ -109,14 +104,11 @@ public class RKRAuto extends LinearOpMode {
             motorRightBack.setPower(.30);
             motorLeftFront.setPower(.30);
             motorLeftBack.setPower(.30);
-            waitForNextHardwareCycle();
         }
         // drives forward at a slow speed until the robot travels 6 feet
         // keep in mind that according to the orientation of the motors, negative powers result
         // in forward movement. This is relevant in our teleOp program also. when the joystick is
         // pressed forward, it actually returns a NEGATIVE value.
-
-        waitOneFullHardwareCycle();
 
         motorRightFront.setPower(0);
         motorRightBack.setPower(0);

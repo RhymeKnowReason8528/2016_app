@@ -6,6 +6,7 @@ import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+import org.swerverobotics.library.SynchronousOpMode;
 import org.swerverobotics.library.TelemetryDashboardAndLog;
 import org.swerverobotics.library.interfaces.Autonomous;
 import org.swerverobotics.library.interfaces.Disabled;
@@ -15,7 +16,7 @@ import org.swerverobotics.library.interfaces.Disabled;
  */
 @Autonomous(name = "Gyro Test")
 @Disabled
-public class GyroTest extends LinearOpMode {
+public class GyroTest extends BaseOpmode {
 
     ModernRoboticsI2cGyro gyroSensor;
     RKRGyro gyroUtility;
@@ -31,7 +32,7 @@ public class GyroTest extends LinearOpMode {
 
     final String LOG_TAG = "gyro-log";
 
-    @Override
+
     public void runOpMode() throws InterruptedException {
         motorRightFront = hardwareMap.dcMotor.get("rightFront");
         motorRightBack = hardwareMap.dcMotor.get("rightBack");

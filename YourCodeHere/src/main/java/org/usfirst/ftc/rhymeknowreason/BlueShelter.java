@@ -30,6 +30,8 @@ public class BlueShelter extends BaseOpmode {
         waitForStart();
         //After init pressed, waits 5 seconds for gyro calibration
 
+        //TODO Add an array of arm movements (just like we did for turns and straight lines)
+
         while(armElbow.getCurrentPosition() < 500) {
             armElbow.setPower(0.2);
             Log.d(AUTON_TAG, "elbow position is " + armElbow.getCurrentPosition());
@@ -45,7 +47,10 @@ public class BlueShelter extends BaseOpmode {
         armShoulder.setPower(0);
 
         Thread.sleep(700);
+        //waits for the robot to stop moving before dropping the climbers into the shelter
+
         climberReleaser.setPosition(RKRAuto.CLIMBER_RELEASER_OPEN);
+        //
 
         telemetry.addData("encoder count", motorRightFront.getCurrentPosition());
         telemetry.addData("gyro value", gyroSensor.getIntegratedZValue());
