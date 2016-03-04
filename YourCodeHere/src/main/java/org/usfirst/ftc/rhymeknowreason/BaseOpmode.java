@@ -46,7 +46,47 @@ public class BaseOpmode extends SynchronousOpMode {
     ArrayList<Double> turns = new ArrayList<>();
 
 
-    public void runAutonomous (DcMotor motorRightFront) {
+    public void runPath () throws InterruptedException {
+        Log.d(AUTON_TAG, Double.toString(Math.max(distances.size(), turns.size())));
+        for (int i = 0; i < Math.max(distances.size(), turns.size()); i++) {
+            Log.d(AUTON_TAG, "Running distance " + i);
+            if(i < distances.size()) {
+                Log.d(AUTON_TAG, "Distance " + i + " not skipped.");
+                double rotations = distances.get(i) / CIRCUMFERENCE;
+                double counts = TICKS_PER_ROTATION_TETRIX * rotations;
+                double adjustedCounts = counts + motorRightFront.getCurrentPosition();
+                RKRGyro.Comparison comparison;
+                double multiplier;
+                int currentPosition = motorRightFront.getCurrentPosition();
+                if(motorRightFront.getCurrentPosition() < adjustedCounts) {
+                    comparison = RKRGyro.Comparison.LESS_THAN;
+                    multiplier = 1;
+                } else {
+                    comparison = RKRGyro.Comparison.GREATER_THAN;
+                    multiplier = -1;
+                }
+
+                while (comparison.evaluate(motorRightFront.getCurrentPosition(), adjustedCounts)) {
+                    telemetry.addData("encoder count", motorRightFront.getCurrentPosition());
+                    telemetry.addData("Counts", -Math.abs((int) counts));
+                    motorRightFront.setPower(.17 * multiplier);
+                    motorRightBack.setPower(.17 * multiplier);
+                    motorLeftFront.setPower(.17 * multiplier);
+                    motorLeftBack.setPower(.17 * multiplier);
+                }
+                motorRightFront.setPower(0);
+                motorRightBack.setPower(0);
+                motorLeftFront.setPower(0);
+                motorLeftBack.setPower(0);
+
+                Thread.sleep(1500);
+            }
+
+            if(i < turns.size()) {
+                Log.d(AUTON_TAG, "Turn " + i + " not skipped.");
+                gyroUtility.turn(turns.get(i));
+            }
+        }
     }
 
     @Override
