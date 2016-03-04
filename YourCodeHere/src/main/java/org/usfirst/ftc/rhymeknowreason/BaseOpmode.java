@@ -42,9 +42,12 @@ public class BaseOpmode extends SynchronousOpMode {
     //math calculations used in program to determine distance traveled in encoder counts
 
     //Overwrite these and add desired values to define autonomous path
-    public ArrayList<Double> distances = new ArrayList<>();
+    ArrayList<Double> distances = new ArrayList<>();
     ArrayList<Double> turns = new ArrayList<>();
 
+
+    public void runAutonomous (DcMotor motorRightFront) {
+    }
 
     @Override
     protected void main() throws InterruptedException {
@@ -96,5 +99,7 @@ public class BaseOpmode extends SynchronousOpMode {
         telemetry.addData("Right Front Motor", motorRightFront.getCurrentPosition());
         telemetry.addData("Elbow Motor", armElbow.getCurrentPosition());
         telemetry.addData("Shoulder Motor", armShoulder.getCurrentPosition());
+
+
     }
 }
