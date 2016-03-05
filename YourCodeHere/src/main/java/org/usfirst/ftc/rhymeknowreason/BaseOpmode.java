@@ -36,8 +36,7 @@ public abstract class BaseOpMode extends SynchronousOpMode {
     IBNO055IMU.Parameters   parameters = new IBNO055IMU.Parameters();
 
     EulerAngles angles;
-
-    parameters.angleUnit      = IBNO055IMU.ANGLEUNIT.DEGREES;
+    
 
     static final String AUTON_TAG = "Autonomous";
 
