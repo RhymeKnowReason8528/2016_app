@@ -3,7 +3,6 @@ package org.usfirst.ftc.rhymeknowreason;
 import android.util.Log;
 
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 /**
@@ -40,10 +39,10 @@ public class RKRGyro{
     Comparison comparisonToUse;
 
     final double DRIVE_GAIN = .01;
-    LinearOpMode mOpMode;
+    BaseOpMode mOpMode;
 
 
-    public RKRGyro(ModernRoboticsI2cGyro gyro, DcMotor[] leftMotors, DcMotor[] rightMotors, LinearOpMode opMode) {
+    public RKRGyro(ModernRoboticsI2cGyro gyro, DcMotor[] leftMotors, DcMotor[] rightMotors, BaseOpMode opMode) {
         mOpMode = opMode;
         mGyro = gyro;
         mOpMode.telemetry.addData("calibrating", true);
@@ -81,7 +80,6 @@ public class RKRGyro{
        Log.d(RKR_GYRO_TAG, "Initial gyro position: " + currentHeading);
 
         while (comparisonToUse.evaluate(currentHeading, adjustedTargetHeading)) {
-            mOpMode.telemetry.clearData();
             mOpMode.telemetry.addData("Gyro heading", mGyro.getIntegratedZValue());
             Log.d(RKR_GYRO_TAG, "Current gyro position: " + Double.toString(currentHeading));
 
@@ -107,7 +105,6 @@ public class RKRGyro{
             }
 
             currentHeading = mGyro.getIntegratedZValue();
-            mOpMode.waitForNextHardwareCycle();
         }
 
         for(DcMotor motor: mRightMotorArray) {
