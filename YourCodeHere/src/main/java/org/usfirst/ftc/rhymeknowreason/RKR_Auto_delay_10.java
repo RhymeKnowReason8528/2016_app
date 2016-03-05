@@ -14,7 +14,7 @@ public class RKR_Auto_delay_10 extends BaseOpMode {
     @Override
     public void main() throws InterruptedException{
 
-        initialize();
+        initialize(false);
 
         waitForStart();
 

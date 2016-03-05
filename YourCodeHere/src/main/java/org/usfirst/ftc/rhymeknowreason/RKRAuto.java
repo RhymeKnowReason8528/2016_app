@@ -23,7 +23,7 @@ public class RKRAuto extends BaseOpMode {
     @Override
     public void main() throws InterruptedException{
 
-        initialize();
+        initialize(false);
 
         waitForStart();
         Thread.sleep(5000);

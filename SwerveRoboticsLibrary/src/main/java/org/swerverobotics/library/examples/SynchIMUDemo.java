@@ -48,7 +48,7 @@ public class SynchIMUDemo extends SynchronousOpMode
 
         // Enable reporting of position using the naive integrator
         imu.startAccelerationIntegration(new Position(), new Velocity());
-        
+
         // Set up our dashboard computations
         composeDashboard();
         
