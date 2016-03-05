@@ -116,7 +116,6 @@ public class RKRAuto extends BaseOpmode {
         motorLeftBack.setPower(0);
         //make the motors stop spinning once encoder reaches desired value
 
-        gyroUtility.turn(45.0);
         //Since we added a wait function inside the auto instead of the driver, turn should work
 
         telemetry.addData("encoder count", motorRightFront.getCurrentPosition());
