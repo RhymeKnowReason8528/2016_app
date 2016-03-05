@@ -2,12 +2,6 @@ package org.usfirst.ftc.rhymeknowreason;
 
 import android.util.Log;
 
-import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorController;
-import com.qualcomm.robotcore.hardware.Servo;
-
 import org.swerverobotics.library.interfaces.Autonomous;
 
 /**
@@ -18,10 +12,9 @@ import org.swerverobotics.library.interfaces.Autonomous;
  *          from driver class.
  */
 @Autonomous(name = "Blue Shelter Autonomous")
-public class BlueShelter extends BaseOpmode {
-
+public class BlueShelter extends BaseOpMode {
+    @Override
     public void main() throws InterruptedException{
-
         distances.add(new Double(87));
         distances.add(new Double(7));
         turns.add(new Double(25));

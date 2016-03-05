@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by RobotK on 3/2/2016.
  */
-public class BaseOpmode extends SynchronousOpMode {
+public abstract class BaseOpMode extends SynchronousOpMode {
     DcMotor motorRightFront;
     DcMotor motorRightBack;
     DcMotor motorLeftFront;
@@ -89,8 +89,7 @@ public class BaseOpmode extends SynchronousOpMode {
         }
     }
 
-    @Override
-    protected void main() throws InterruptedException {
+    protected void initialize() throws InterruptedException {
         motorRightFront = hardwareMap.dcMotor.get("rightFront");
         motorRightBack = hardwareMap.dcMotor.get("rightBack");
         motorLeftFront = hardwareMap.dcMotor.get("leftFront");

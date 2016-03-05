@@ -3,10 +3,8 @@ package org.usfirst.ftc.rhymeknowreason;
 import android.util.Log;
 
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.swerverobotics.library.SynchronousOpMode;
 import org.swerverobotics.library.TelemetryDashboardAndLog;
 import org.swerverobotics.library.interfaces.Autonomous;
 import org.swerverobotics.library.interfaces.Disabled;
@@ -16,7 +14,7 @@ import org.swerverobotics.library.interfaces.Disabled;
  */
 @Autonomous(name = "Gyro Test")
 @Disabled
-public class GyroTest extends BaseOpmode {
+public class GyroTest extends BaseOpMode {
 
     ModernRoboticsI2cGyro gyroSensor;
     RKRGyro gyroUtility;

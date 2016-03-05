@@ -1,6 +1,5 @@
 package org.usfirst.ftc.rhymeknowreason;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 
@@ -10,7 +9,7 @@ import org.swerverobotics.library.interfaces.Autonomous;
  * Created by RobotK on 2/1/2016.
  */
 @Autonomous(name = "Delay Autonomous")
-public class RKR_Auto_delay_10 extends BaseOpmode {
+public class RKR_Auto_delay_10 extends BaseOpMode {
     DcMotor motorRightFront;
     DcMotor motorRightBack;
     DcMotor motorLeftFront;

@@ -3,7 +3,6 @@ package org.usfirst.ftc.rhymeknowreason;
 import android.util.Log;
 
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 /**
@@ -40,10 +39,10 @@ public class RKRGyro{
     Comparison comparisonToUse;
 
     final double DRIVE_GAIN = .01;
-    BaseOpmode mOpMode;
+    BaseOpMode mOpMode;
 
 
-    public RKRGyro(ModernRoboticsI2cGyro gyro, DcMotor[] leftMotors, DcMotor[] rightMotors, BaseOpmode opMode) {
+    public RKRGyro(ModernRoboticsI2cGyro gyro, DcMotor[] leftMotors, DcMotor[] rightMotors, BaseOpMode opMode) {
         mOpMode = opMode;
         mGyro = gyro;
         mOpMode.telemetry.addData("calibrating", true);

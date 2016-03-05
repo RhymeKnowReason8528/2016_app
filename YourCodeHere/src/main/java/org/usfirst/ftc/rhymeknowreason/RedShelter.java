@@ -3,7 +3,6 @@ package org.usfirst.ftc.rhymeknowreason;
 import android.util.Log;
 
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -18,7 +17,7 @@ import org.swerverobotics.library.interfaces.Autonomous;
  *          from driver class.
  */
 @Autonomous(name = "Red Shelter Autonomous")
-public class RedShelter extends BaseOpmode {
+public class RedShelter extends BaseOpMode {
     DcMotor motorRightFront;
     DcMotor motorRightBack;
     DcMotor motorLeftFront;

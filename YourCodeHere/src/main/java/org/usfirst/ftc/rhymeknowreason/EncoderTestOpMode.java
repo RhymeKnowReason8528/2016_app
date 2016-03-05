@@ -1,6 +1,5 @@
 package org.usfirst.ftc.rhymeknowreason;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 
@@ -9,7 +8,7 @@ import org.swerverobotics.library.interfaces.Disabled;
 
 @Autonomous(name = "Encoder Algorithm Test")
 @Disabled
-public class EncoderTestOpMode extends BaseOpmode{
+public class EncoderTestOpMode extends BaseOpMode {
     DcMotor motor;
 
     public void runOpMode() throws InterruptedException {
