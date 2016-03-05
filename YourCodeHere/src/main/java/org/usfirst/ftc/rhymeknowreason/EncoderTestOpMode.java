@@ -11,7 +11,8 @@ import org.swerverobotics.library.interfaces.Disabled;
 public class EncoderTestOpMode extends BaseOpMode {
     DcMotor motor;
 
-    public void runOpMode() throws InterruptedException {
+    @Override
+    public void main() throws InterruptedException {
         motor = hardwareMap.dcMotor.get("motor");
         motor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
         motor.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);

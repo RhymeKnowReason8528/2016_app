@@ -33,13 +33,27 @@ public abstract class BaseOpMode extends SynchronousOpMode {
     static final String AUTON_TAG = "Autonomous";
 
 
-    final static int TICKS_PER_ROTATION_TETRIX = 1440;
-    final static int TICKS_PER_ROTATION_ANDYMARK_60 = 1680;
-    final static int WHEEL_DIAMETER = 4;
+    final static int TICKS_PER_ROTATION = 1440;
+    final static int DISTANCE = 72;
     //values in term of inches
 
+    final static int WHEEL_DIAMETER = 4;
+
     final static double CIRCUMFERENCE = Math.PI*WHEEL_DIAMETER;
+
+    final static double ROTATIONS = DISTANCE/CIRCUMFERENCE;
+
+    final static int TICKS_PER_ROTATION_TETRIX = 1440;
+    final static int TICKS_PER_ROTATION_ANDYMARK_60 = 1680;
+    //values in term of inches
+
     //math calculations used in program to determine distance traveled in encoder counts
+
+    final static double COUNTS = TICKS_PER_ROTATION_ANDYMARK_60 * ROTATIONS;
+    //math calculations used in program to determine distance traveled in encoder counts
+
+    static final double CLIMBER_RELEASER_CLOSED = 0.48;
+    static final double CLIMBER_RELEASER_OPEN = 0.37;
 
     //Overwrite these and add desired values to define autonomous path
     ArrayList<Double> distances = new ArrayList<>();
@@ -111,7 +125,7 @@ public abstract class BaseOpMode extends SynchronousOpMode {
         rightWing.setPosition(0.5);
         leftWing.setPosition(0.5);
 
-        gyroSensor = (ModernRoboticsI2cGyro)hardwareMap.gyroSensor.get("gyro");
+        gyroSensor = (ModernRoboticsI2cGyro)unthunkedHardwareMap.gyroSensor.get("gyro");
         gyroUtility = new RKRGyro(gyroSensor, leftMotors, rightMotors, this);
         gyroUtility.initialize();
 

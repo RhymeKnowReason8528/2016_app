@@ -15,6 +15,9 @@ import org.swerverobotics.library.interfaces.Autonomous;
 public class BlueShelter extends BaseOpMode {
     @Override
     public void main() throws InterruptedException{
+
+        initialize();
+
         distances.add(new Double(87));
         distances.add(new Double(7));
         turns.add(new Double(25));
@@ -22,8 +25,6 @@ public class BlueShelter extends BaseOpMode {
         Thread.sleep(7000);
         waitForStart();
         //After init pressed, waits 5 seconds for gyro calibration
-
-        //TODO Add an array of arm movements (just like we did for turns and straight lines)
 
         while(armElbow.getCurrentPosition() < 500) {
             armElbow.setPower(0.2);
