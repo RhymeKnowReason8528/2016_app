@@ -24,7 +24,7 @@ public class WaitBlueShelter extends BaseOpMode {
     @Override
     public void main() throws InterruptedException{
 
-        initialize();
+        initialize(false);
 
         distances.add(new Double(87));
         distances.add(new Double(7));

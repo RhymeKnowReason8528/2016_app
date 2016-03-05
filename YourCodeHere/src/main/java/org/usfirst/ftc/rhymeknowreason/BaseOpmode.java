@@ -8,6 +8,8 @@ import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.swerverobotics.library.SynchronousOpMode;
+import org.swerverobotics.library.interfaces.EulerAngles;
+import org.swerverobotics.library.interfaces.IBNO055IMU;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +31,13 @@ public abstract class BaseOpMode extends SynchronousOpMode {
 
     ModernRoboticsI2cGyro gyroSensor;
     RKRGyro gyroUtility;
+
+    IBNO055IMU imu;
+    IBNO055IMU.Parameters   parameters = new IBNO055IMU.Parameters();
+
+    EulerAngles angles;
+
+    parameters.angleUnit      = IBNO055IMU.ANGLEUNIT.DEGREES;
 
     static final String AUTON_TAG = "Autonomous";
 
@@ -103,7 +112,7 @@ public abstract class BaseOpMode extends SynchronousOpMode {
         }
     }
 
-    protected void initialize() throws InterruptedException {
+    protected void initialize(boolean IMUInit) throws InterruptedException {
         motorRightFront = hardwareMap.dcMotor.get("rightFront");
         motorRightBack = hardwareMap.dcMotor.get("rightBack");
         motorLeftFront = hardwareMap.dcMotor.get("leftFront");
@@ -153,6 +162,10 @@ public abstract class BaseOpMode extends SynchronousOpMode {
         telemetry.addData("Elbow Motor", armElbow.getCurrentPosition());
         telemetry.addData("Shoulder Motor", armShoulder.getCurrentPosition());
 
+        if(IMUInit == true) {
 
+        } else {
+
+        }
     }
 }
