@@ -6,6 +6,7 @@ import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.robocol.Telemetry;
 
 import org.swerverobotics.library.SynchronousOpMode;
 import org.swerverobotics.library.interfaces.EulerAngles;
@@ -32,10 +33,13 @@ public abstract class BaseOpMode extends SynchronousOpMode {
     ModernRoboticsI2cGyro gyroSensor;
     RKRGyro gyroUtility;
 
-    IBNO055IMU imu;
-    IBNO055IMU.Parameters   parameters = new IBNO055IMU.Parameters();
+    //                angles     = imu.getAngularOrientation();
 
-    EulerAngles angles;
+    IBNO055IMU shoulderIMU;
+    IBNO055IMU elbowIMU;
+
+    EulerAngles shoulderAngle;
+    EulerAngles elbowAngle;
     
 
     static final String AUTON_TAG = "Autonomous";
@@ -111,7 +115,7 @@ public abstract class BaseOpMode extends SynchronousOpMode {
         }
     }
 
-    protected void initialize(boolean IMUInit) throws InterruptedException {
+    protected void initialize(boolean shouldInitIMU) throws InterruptedException {
         motorRightFront = hardwareMap.dcMotor.get("rightFront");
         motorRightBack = hardwareMap.dcMotor.get("rightBack");
         motorLeftFront = hardwareMap.dcMotor.get("leftFront");
@@ -161,8 +165,34 @@ public abstract class BaseOpMode extends SynchronousOpMode {
         telemetry.addData("Elbow Motor", armElbow.getCurrentPosition());
         telemetry.addData("Shoulder Motor", armShoulder.getCurrentPosition());
 
-        if(IMUInit == true) {
+        if(shouldInitIMU) {
+            int calibrationSteps = 0;
+            telemetry.addData("Step 1: ", "Put the elbow IMU on the ground, and then press the y button on controller one while holding the IMU still.");
+            while(calibrationSteps == 0) {
+                if(gamepad1.y) {
+                    while(gamepad1.y) {
+                    }
+                    elbowAngle = elbowIMU.getAngularOrientation();
+                    double initialPitchElbow = elbowAngle.pitch;
+                    calibrationSteps = 1;
+                    idle();
+                }
+            }
+            telemetry.addData("Step 2: ", "Elbow IMU calibrated. Now put it back on the robot, and repeat step one with the shoulder IMU.");
 
+            while(calibrationSteps == 1) {
+                if(gamepad1.y) {
+                    while(gamepad1.y) {
+                    }
+                    shoulderAngle = shoulderIMU.getAngularOrientation();
+                    double initialpitchShoulder = shoulderAngle.pitch;
+                    calibrationSteps = 2;
+                    idle();
+                }
+            }
+            telemetry.addData("Step 3: ", "Shoulder IMU calibrated. Put it back on the robot, and then press the y button on controller one.");
+            while(calibrationSteps == 2 && gamepad1.y == false) {
+            }
         } else {
 
         }
