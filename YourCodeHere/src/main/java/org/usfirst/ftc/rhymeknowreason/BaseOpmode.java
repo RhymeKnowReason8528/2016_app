@@ -174,6 +174,7 @@ public abstract class BaseOpMode extends SynchronousOpMode {
         telemetry.addData("Right Front Motor", motorRightFront.getCurrentPosition());
         telemetry.addData("Elbow Motor", armElbow.getCurrentPosition());
         telemetry.addData("Shoulder Motor", armShoulder.getCurrentPosition());
+        telemetry.update();
 
         if(shouldInitIMU) {
             int calibrationSteps = 0;
