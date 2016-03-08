@@ -10,7 +10,7 @@ import org.swerverobotics.library.interfaces.*;
  * http://www.adafruit.com/products/2472
  */
 @TeleOp(name="IMU Demo", group="Swerve Examples")
-@Disabled
+//@Disabled
 public class SynchIMUDemo extends SynchronousOpMode
     {
     //----------------------------------------------------------------------------------------------
@@ -44,7 +44,7 @@ public class SynchIMUDemo extends SynchronousOpMode
         parameters.accelUnit      = IBNO055IMU.ACCELUNIT.METERS_PERSEC_PERSEC;
         parameters.loggingEnabled = false;
         parameters.loggingTag     = "BNO055";
-        imu = ClassFactory.createAdaFruitBNO055IMU(hardwareMap.i2cDevice.get("imu"), parameters);
+        imu = ClassFactory.createAdaFruitBNO055IMU(hardwareMap.i2cDevice.get("shoulder_imu"), parameters);
 
         // Enable reporting of position using the naive integrator
         imu.startAccelerationIntegration(new Position(), new Velocity());
@@ -79,7 +79,7 @@ public class SynchIMUDemo extends SynchronousOpMode
                 // Acquiring the angles is relatively expensive; we don't want
                 // to do that in each of the three items that need that info, as that's
                 // three times the necessary expense.
-                angles     = imu.getAngularOrientation();
+
                 position   = imu.getPosition();
 
                 // The rest of this is pretty cheap to acquire, but we may as well do it
