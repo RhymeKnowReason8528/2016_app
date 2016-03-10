@@ -1,5 +1,10 @@
 package org.usfirst.ftc.rhymeknowreason;
 
+import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.util.Log;
 
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
@@ -19,7 +24,7 @@ import java.util.List;
 /**
  * Created by RobotK on 3/2/2016.
  */
-public abstract class BaseOpMode extends SynchronousOpMode {
+public abstract class BaseOpMode extends SynchronousOpMode implements SensorEventListener{
     DcMotor motorRightFront;
     DcMotor motorRightBack;
     DcMotor motorLeftFront;
@@ -30,6 +35,8 @@ public abstract class BaseOpMode extends SynchronousOpMode {
     Servo servoFlame;
     Servo leftWing;
     Servo rightWing;
+    SensorManager sensorManager;
+    Sensor accelerometer;
 
     ModernRoboticsI2cGyro gyroSensor;
     RKRGyro gyroUtility;
@@ -41,6 +48,7 @@ public abstract class BaseOpMode extends SynchronousOpMode {
 
     double initialElbowAngle;
     double initialShoulderAngle;
+    float currentAcceleration;
 
 
     static final String AUTON_TAG = "Autonomous";
@@ -151,6 +159,10 @@ public abstract class BaseOpMode extends SynchronousOpMode {
         shoulderIMU = ClassFactory.createAdaFruitBNO055IMU(hardwareMap.i2cDevice.get("shoulder_imu"), parameters);
 //        elbowIMU = ClassFactory.createAdaFruitBNO055IMU(hardwareMap.i2cDevice.get("elbow_imu"), parameters);
 
+        sensorManager = (SensorManager) MyApplication.get().getSystemService(Context.SENSOR_SERVICE);
+        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_GAME);
+
         armShoulder = hardwareMap.dcMotor.get("motor_shoulder");
         armShoulder.setDirection(DcMotor.Direction.REVERSE);
         armElbow = hardwareMap.dcMotor.get("motor_elbow");
@@ -212,5 +224,19 @@ public abstract class BaseOpMode extends SynchronousOpMode {
             }
         } else {
         }
+        }
+
+
+        //TODO figure out why this code isn't being run
+        @Override
+        public void onSensorChanged(SensorEvent event) {
+            currentAcceleration = event.values[1];
+            telemetry.log.add("acceleration is: " + Float.toString(currentAcceleration));
+            Log.d("accelerometer", Float.toString(currentAcceleration));
+        }
+
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int value) {
+
         }
     }
