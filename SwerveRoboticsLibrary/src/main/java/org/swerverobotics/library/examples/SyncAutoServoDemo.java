@@ -11,10 +11,10 @@ import org.swerverobotics.library.interfaces.*;
  * from a synchronous OpMode. It expects a single servo, named
  * "servo". It works with both modern and legacy servo controllers.
  */
+
 @Autonomous(name="Auto Servo (Sync)", group="Swerve Examples")
 @Disabled
-public class SyncAutoServoDemo extends SynchronousOpMode
-    {
+public class SyncAutoServoDemo extends SynchronousOpMode {
     Servo servo;
 
     @Override protected void main() throws InterruptedException
@@ -25,7 +25,7 @@ public class SyncAutoServoDemo extends SynchronousOpMode
 
         waitForStart();
 
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; opModeIsActive() && i < 10; i++)
             {
             this.servo.setPosition(0);
             delay();
@@ -38,9 +38,7 @@ public class SyncAutoServoDemo extends SynchronousOpMode
 
     void delay() throws InterruptedException
         {
-        ElapsedTime elapsed = new ElapsedTime();
-        while (elapsed.time() < 0.25)
-            this.idle();
+        Thread.sleep(250);
         }
 
     void configureDashboard()

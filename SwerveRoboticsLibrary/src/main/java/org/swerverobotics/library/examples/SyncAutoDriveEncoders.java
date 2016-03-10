@@ -13,8 +13,7 @@ import org.swerverobotics.library.interfaces.*;
  */
 @Autonomous(name="Auto Drive (Sync)", group="Swerve Examples")
 @Disabled
-public class SyncAutoDriveEncoders extends SynchronousOpMode
-    {
+public class SyncAutoDriveEncoders extends SynchronousOpMode {
     //----------------------------------------------------------------------------------------------
     // State
     //----------------------------------------------------------------------------------------------
@@ -66,24 +65,20 @@ public class SyncAutoDriveEncoders extends SynchronousOpMode
         this.motorLeft.setTargetPosition(this.motorLeft.getCurrentPosition() + denc);
         this.motorRight.setTargetPosition(this.motorRight.getCurrentPosition() + denc);
 
-        // Give them the power level we want them to move at
-        this.motorLeft.setPower(power);
-        this.motorRight.setPower(power);
-
         // Set them a-going
         this.motorLeft.setMode(DcMotorController.RunMode.RUN_TO_POSITION);
         this.motorRight.setMode(DcMotorController.RunMode.RUN_TO_POSITION);
 
+         // Give them the power level we want them to move at
+        this.motorLeft.setPower(power);
+        this.motorRight.setPower(power);
+
         // Wait until they are done
-        while (this.motorLeft.isBusy() || this.motorRight.isBusy())
+        while (opModeIsActive() && (this.motorLeft.isBusy() || this.motorRight.isBusy()))
             {
             telemetry.update();
             this.idle();
             }
-
-        // Now that we've arrived, kill the motors so they don't just sit there buzzing
-        this.motorLeft.setPower(0);
-        this.motorRight.setPower(0);
 
         // Always leave the screen looking pretty
         telemetry.updateNow();

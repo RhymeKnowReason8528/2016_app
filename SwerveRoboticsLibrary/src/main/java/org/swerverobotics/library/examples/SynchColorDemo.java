@@ -9,9 +9,9 @@ import org.swerverobotics.library.interfaces.*;
  * sensor implementation, which is used automatically. The opmode expects either a HiTechnic
  * or a Modern Robotics color sensor named "colorSensor".
  */
-@TeleOp(name="Color Demo (sync)", group="Swerve Examples")
+@TeleOp(name="Color Demo (Synch)", group="Swerve Examples")
 @Disabled
-public class SyncColorDemo extends SynchronousOpMode
+public class SynchColorDemo extends SynchronousOpMode
     {
     ColorSensor color;
     boolean     ledIsOn;
