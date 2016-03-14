@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Created by RobotK on 3/2/2016.
  */
-public abstract class BaseOpMode extends SynchronousOpMode implements SensorEventListener{
+public abstract class BaseOpMode extends SynchronousOpMode implements SensorEventListener {
     DcMotor motorRightFront;
     DcMotor motorRightBack;
     DcMotor motorLeftFront;
@@ -60,9 +60,9 @@ public abstract class BaseOpMode extends SynchronousOpMode implements SensorEven
 
     final static int WHEEL_DIAMETER = 4;
 
-    final static double CIRCUMFERENCE = Math.PI*WHEEL_DIAMETER;
+    final static double CIRCUMFERENCE = Math.PI * WHEEL_DIAMETER;
 
-    final static double ROTATIONS = DISTANCE/CIRCUMFERENCE;
+    final static double ROTATIONS = DISTANCE / CIRCUMFERENCE;
 
     final static int TICKS_PER_ROTATION_TETRIX = 1440;
     final static int TICKS_PER_ROTATION_ANDYMARK_60 = 1680;
@@ -80,18 +80,18 @@ public abstract class BaseOpMode extends SynchronousOpMode implements SensorEven
     ArrayList<Double> distances = new ArrayList<>();
     ArrayList<Double> turns = new ArrayList<>();
 
-    IBNO055IMU.Parameters   parameters = new IBNO055IMU.Parameters();
+    IBNO055IMU.Parameters parameters = new IBNO055IMU.Parameters();
 
-    public void runPath () throws InterruptedException {
+    public void runPath() throws InterruptedException {
 
-        parameters.angleUnit      = IBNO055IMU.ANGLEUNIT.DEGREES;
+        parameters.angleUnit = IBNO055IMU.ANGLEUNIT.DEGREES;
         parameters.loggingEnabled = false;
-        parameters.loggingTag     = "BNO055";
+        parameters.loggingTag = "BNO055";
 
         Log.d(AUTON_TAG, Double.toString(Math.max(distances.size(), turns.size())));
         for (int i = 0; i < Math.max(distances.size(), turns.size()); i++) {
             Log.d(AUTON_TAG, "Running distance " + i);
-            if(i < distances.size()) {
+            if (i < distances.size()) {
                 Log.d(AUTON_TAG, "Distance " + i + " not skipped.");
                 double rotations = distances.get(i) / CIRCUMFERENCE;
                 double counts = TICKS_PER_ROTATION_TETRIX * rotations;
@@ -99,7 +99,7 @@ public abstract class BaseOpMode extends SynchronousOpMode implements SensorEven
                 RKRGyro.Comparison comparison;
                 double multiplier;
                 int currentPosition = motorRightFront.getCurrentPosition();
-                if(motorRightFront.getCurrentPosition() < adjustedCounts) {
+                if (motorRightFront.getCurrentPosition() < adjustedCounts) {
                     comparison = RKRGyro.Comparison.LESS_THAN;
                     multiplier = 1;
                 } else {
@@ -123,7 +123,7 @@ public abstract class BaseOpMode extends SynchronousOpMode implements SensorEven
                 Thread.sleep(1500);
             }
 
-            if(i < turns.size()) {
+            if (i < turns.size()) {
                 Log.d(AUTON_TAG, "Turn " + i + " not skipped.");
                 gyroUtility.turn(turns.get(i));
             }
@@ -143,7 +143,7 @@ public abstract class BaseOpMode extends SynchronousOpMode implements SensorEven
         DcMotor[] leftMotors = {motorLeftFront, motorLeftBack};
         DcMotor[] rightMotors = {motorRightFront, motorRightBack};
 
-        climberReleaser = (Servo)hardwareMap.servo.get("climber_releaser");
+        climberReleaser = (Servo) hardwareMap.servo.get("climber_releaser");
         servoFlame = hardwareMap.servo.get("flame_servo");
         rightWing = hardwareMap.servo.get("right_wing");
         leftWing = hardwareMap.servo.get("left_wing");
@@ -152,7 +152,7 @@ public abstract class BaseOpMode extends SynchronousOpMode implements SensorEven
         rightWing.setPosition(0.5);
         leftWing.setPosition(0.5);
 
-        gyroSensor = (ModernRoboticsI2cGyro)unthunkedHardwareMap.gyroSensor.get("gyro");
+        gyroSensor = (ModernRoboticsI2cGyro) unthunkedHardwareMap.gyroSensor.get("gyro");
         gyroUtility = new RKRGyro(gyroSensor, leftMotors, rightMotors, this);
         gyroUtility.initialize();
 
@@ -188,15 +188,15 @@ public abstract class BaseOpMode extends SynchronousOpMode implements SensorEven
         telemetry.addData("Shoulder Motor", armShoulder.getCurrentPosition());
         telemetry.update();
 
-        if(shouldInitIMU) {
+        if (shouldInitIMU) {
             int calibrationSteps = 0;
             telemetry.addData("Step 1", "Put the elbow IMU on the ground, and then press the y button on controller one while holding the IMU still.");
             telemetry.update();
-            
-            while(calibrationSteps == 0) {
+
+            while (calibrationSteps == 0) {
                 updateGamepads();
-                if(gamepad1.y) {
-                    while(gamepad1.y) {
+                if (gamepad1.y) {
+                    while (gamepad1.y) {
                     }
 //                    initialElbowAngle = elbowIMU.getAngularOrientation().pitch;
                     calibrationSteps = 1;
@@ -206,10 +206,10 @@ public abstract class BaseOpMode extends SynchronousOpMode implements SensorEven
             telemetry.addData("Step 2", "Elbow IMU calibrated. Now put it back on the robot, and repeat step one with the shoulder IMU.");
             telemetry.update();
 
-            while(calibrationSteps == 1) {
+            while (calibrationSteps == 1) {
                 updateGamepads();
-                if(gamepad1.y) {
-                    while(gamepad1.y) {
+                if (gamepad1.y) {
+                    while (gamepad1.y) {
                     }
                     initialShoulderAngle = shoulderIMU.getAngularOrientation().pitch;
                     calibrationSteps = 2;
@@ -220,23 +220,23 @@ public abstract class BaseOpMode extends SynchronousOpMode implements SensorEven
             telemetry.update();
 
 
-            while(calibrationSteps == 2 && gamepad1.y == false) {
+            while (calibrationSteps == 2 && gamepad1.y == false) {
             }
         } else {
         }
-        }
-
-
-        //TODO figure out why this code isn't being run
-        @Override
-        public void onSensorChanged(SensorEvent event) {
-            currentAcceleration = event.values[1];
-            telemetry.log.add("acceleration is: " + Float.toString(currentAcceleration));
-            Log.d("accelerometer", Float.toString(currentAcceleration));
-        }
-
-        @Override
-        public void onAccuracyChanged(Sensor sensor, int value) {
-
-        }
     }
+
+
+    //TODO figure out why this code isn't being run
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        currentAcceleration = event.values[1];
+        telemetry.log.add("acceleration is: " + Float.toString(currentAcceleration));
+        Log.d("accelerometer", Float.toString(currentAcceleration));
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int value) {
+
+    }
+}
