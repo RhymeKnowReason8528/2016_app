@@ -94,8 +94,6 @@ public class RKRTeleOp extends OpMode {
         if(Math.abs(rightPower) > Math.abs(DEAD_ZONE)) {
             motorRightFront.setPower(rightPower);
             motorRightBack.setPower(rightPower);
-            telemetry.addData("Right Power:", motorRightFront.getPower());
-            telemetry.addData("Right Encoder: ", motorRightFront.getCurrentPosition());
         } else {
             motorRightFront.setPower(0);
             motorRightBack.setPower(0);
@@ -104,8 +102,6 @@ public class RKRTeleOp extends OpMode {
         if(Math.abs(leftPower) > Math.abs(DEAD_ZONE)) {
             motorLeftFront.setPower(leftPower);
             motorLeftBack.setPower(leftPower);
-            telemetry.addData("Left Power:", motorLeftFront.getPower());
-            telemetry.addData("Left Encoder: ", motorLeftFront.getCurrentPosition());
         } else {
             motorLeftFront.setPower(0);
             motorLeftBack.setPower(0);
@@ -164,6 +160,12 @@ public class RKRTeleOp extends OpMode {
                 isClimberReleaserOpen = true;
             }
         }
+
+
+        telemetry.addData("Right Power:", motorRightFront.getPower());
+        telemetry.addData("Right Encoder: ", motorRightFront.getCurrentPosition());
+        telemetry.addData("Left Power:", motorLeftFront.getPower());
+        telemetry.addData("Left Encoder: ", motorLeftFront.getCurrentPosition());
 
         wasReleaseButtonPressed = gamepad2.y;
 
