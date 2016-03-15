@@ -114,6 +114,9 @@ public abstract class BaseOpMode extends SynchronousOpMode implements SensorEven
                     motorRightBack.setPower(.17 * multiplier);
                     motorLeftFront.setPower(.17 * multiplier);
                     motorLeftBack.setPower(.17 * multiplier);
+                    if(comparison.evaluate(motorRightFront.getCurrentPosition(), 30 * multiplier) && currentAcceleration < -1.7) {
+                        stop();
+                    }
                 }
                 motorRightFront.setPower(0);
                 motorRightBack.setPower(0);
