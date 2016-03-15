@@ -43,7 +43,7 @@ public abstract class BaseOpMode extends SynchronousOpMode implements SensorEven
 
     //                angles     = imu.getAngularOrientation();
 
-    IBNO055IMU shoulderIMU;
+//    IBNO055IMU shoulderIMU;
 //    IBNO055IMU elbowIMU;
 
     double initialElbowAngle;
@@ -156,12 +156,12 @@ public abstract class BaseOpMode extends SynchronousOpMode implements SensorEven
         gyroUtility = new RKRGyro(gyroSensor, leftMotors, rightMotors, this);
         gyroUtility.initialize();
 
-        shoulderIMU = ClassFactory.createAdaFruitBNO055IMU(hardwareMap.i2cDevice.get("shoulder_imu"), parameters);
+//        shoulderIMU = ClassFactory.createAdaFruitBNO055IMU(hardwareMap.i2cDevice.get("shoulder_imu"), parameters);
 //        elbowIMU = ClassFactory.createAdaFruitBNO055IMU(hardwareMap.i2cDevice.get("elbow_imu"), parameters);
 
         sensorManager = (SensorManager) MyApplication.get().getSystemService(Context.SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_GAME);
+        sensorManager.registerListener(this, accelerometer, SensorManager.SENSOR_DELAY_UI);
 
         armShoulder = hardwareMap.dcMotor.get("motor_shoulder");
         armShoulder.setDirection(DcMotor.Direction.REVERSE);
@@ -211,7 +211,7 @@ public abstract class BaseOpMode extends SynchronousOpMode implements SensorEven
                 if (gamepad1.y) {
                     while (gamepad1.y) {
                     }
-                    initialShoulderAngle = shoulderIMU.getAngularOrientation().pitch;
+//                    initialShoulderAngle = shoulderIMU.getAngularOrientation().pitch;
                     calibrationSteps = 2;
                     idle();
                 }
@@ -226,8 +226,6 @@ public abstract class BaseOpMode extends SynchronousOpMode implements SensorEven
         }
     }
 
-
-    //TODO figure out why this code isn't being run
     @Override
     public void onSensorChanged(SensorEvent event) {
         currentAcceleration = event.values[1];
