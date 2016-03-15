@@ -11,6 +11,10 @@ public class UselessOpMode extends BaseOpMode {
 
     @Override
     protected void main() throws InterruptedException {
+
+        initialize(false);
+
+
         while(true) {
             telemetry.log.add("Testing log");
             telemetry.addData("Testing adding line","");
