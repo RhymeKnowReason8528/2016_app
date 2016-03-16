@@ -98,6 +98,7 @@ public abstract class BaseOpMode extends SynchronousOpMode implements SensorEven
                 double adjustedCounts = counts + motorRightFront.getCurrentPosition();
                 RKRGyro.Comparison comparison;
                 double multiplier;
+                double oldPosition;
                 int currentPosition = motorRightFront.getCurrentPosition();
                 if (motorRightFront.getCurrentPosition() < adjustedCounts) {
                     comparison = RKRGyro.Comparison.LESS_THAN;
@@ -107,14 +108,16 @@ public abstract class BaseOpMode extends SynchronousOpMode implements SensorEven
                     multiplier = -1;
                 }
 
-                while (comparison.evaluate(motorRightFront.getCurrentPosition(), adjustedCounts)) {
+                oldPosition = motorRightFront.getCurrentPosition();
+
+                while (comparison.evaluate(motorRightFront.getCurrentPosition() - oldPosition, adjustedCounts)) {
                     telemetry.addData("encoder count", motorRightFront.getCurrentPosition());
                     telemetry.addData("Counts", -Math.abs((int) counts));
                     motorRightFront.setPower(.17 * multiplier);
                     motorRightBack.setPower(.17 * multiplier);
                     motorLeftFront.setPower(.17 * multiplier);
                     motorLeftBack.setPower(.17 * multiplier);
-                    if(comparison.evaluate(motorRightFront.getCurrentPosition(), 30 * multiplier) && currentAcceleration < -1.7) {
+                    if(comparison.evaluate(motorRightFront.getCurrentPosition(), 2160 * multiplier) && currentAcceleration < -1.7) {
                         stop();
                     }
                 }
