@@ -21,5 +21,8 @@ public class AccelerometerTestOpMode extends BaseOpMode {
 
         Log.d("accelerometer","Autonomous stopped.");
         telemetry.log.add("Autonomous stopped");
+
+        while(true) {
+        }
     }
 }
