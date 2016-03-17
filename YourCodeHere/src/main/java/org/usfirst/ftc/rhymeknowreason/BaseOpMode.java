@@ -14,6 +14,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.robocol.Telemetry;
 
 import org.swerverobotics.library.ClassFactory;
+import org.swerverobotics.library.SwerveUtil;
 import org.swerverobotics.library.SynchronousOpMode;
 import org.swerverobotics.library.interfaces.EulerAngles;
 import org.swerverobotics.library.interfaces.IBNO055IMU;
@@ -93,12 +94,12 @@ public abstract class BaseOpMode extends SynchronousOpMode implements SensorEven
             Log.d(AUTON_TAG, "Running distance " + i);
             if (i < distances.size()) {
                 Log.d(AUTON_TAG, "Distance " + i + " not skipped.");
+                double originalPosition = motorRightFront.getCurrentPosition();
                 double rotations = distances.get(i) / CIRCUMFERENCE;
                 double counts = TICKS_PER_ROTATION_TETRIX * rotations;
-                double adjustedCounts = counts + motorRightFront.getCurrentPosition();
+                double adjustedCounts = counts + originalPosition;
                 RKRGyro.Comparison comparison;
                 double multiplier;
-                double oldPosition;
                 int currentPosition = motorRightFront.getCurrentPosition();
                 if (motorRightFront.getCurrentPosition() < adjustedCounts) {
                     comparison = RKRGyro.Comparison.LESS_THAN;
@@ -108,16 +109,23 @@ public abstract class BaseOpMode extends SynchronousOpMode implements SensorEven
                     multiplier = -1;
                 }
 
-                oldPosition = motorRightFront.getCurrentPosition();
-
-                while (comparison.evaluate(motorRightFront.getCurrentPosition() - oldPosition, adjustedCounts)) {
+                while (comparison.evaluate(motorRightFront.getCurrentPosition() - originalPosition, adjustedCounts)) {
                     telemetry.addData("encoder count", motorRightFront.getCurrentPosition());
                     telemetry.addData("Counts", -Math.abs((int) counts));
                     motorRightFront.setPower(.17 * multiplier);
                     motorRightBack.setPower(.17 * multiplier);
                     motorLeftFront.setPower(.17 * multiplier);
                     motorLeftBack.setPower(.17 * multiplier);
-                    if(comparison.evaluate(motorRightFront.getCurrentPosition(), 2160 * multiplier) && currentAcceleration < -1.7) {
+
+                    Log.d("accelerometer", Float.toString(currentAcceleration));
+                    telemetry.log.add("acceleration:" + Float.toString(currentAcceleration));
+
+                    if(comparison.evaluate(motorRightFront.getCurrentPosition(), 1000 * multiplier) && currentAcceleration < -1.7) {
+                        motorRightFront.setPower(0);
+                        motorRightBack.setPower(0);
+                        motorLeftFront.setPower(0);
+                        motorLeftBack.setPower(0);
+                        SwerveUtil.playSound(MyApplication.get(), R.raw.briefchord);
                         stop();
                     }
                 }
@@ -235,8 +243,6 @@ public abstract class BaseOpMode extends SynchronousOpMode implements SensorEven
     @Override
     public void onSensorChanged(SensorEvent event) {
         currentAcceleration = event.values[1];
-        telemetry.log.add("acceleration is: " + Float.toString(currentAcceleration));
-        Log.d("accelerometer", Float.toString(currentAcceleration));
     }
 
     @Override
