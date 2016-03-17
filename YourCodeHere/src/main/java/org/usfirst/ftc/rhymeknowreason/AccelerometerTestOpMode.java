@@ -14,7 +14,7 @@ public class AccelerometerTestOpMode extends BaseOpMode {
     protected void main() throws InterruptedException {
         initialize(false);
 
-        distances.add(40.0);
+        distances.add(1000.0);
 
         waitForStart();
         runPath();
