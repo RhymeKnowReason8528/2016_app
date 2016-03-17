@@ -109,43 +109,43 @@ public abstract class BaseOpMode extends SynchronousOpMode implements SensorEven
                     multiplier = -1;
                 }
 
-<<<<<<< HEAD
                 while (comparison.evaluate(motorRightFront.getCurrentPosition() - originalPosition, adjustedCounts)) {
                     telemetry.addData("encoder count", motorRightFront.getCurrentPosition());
                     telemetry.addData("Counts", -Math.abs((int) counts));
-=======
-                while (comparison.evaluate(motorRightFront.getCurrentPosition(), adjustedCounts)) {
+
+                    while (comparison.evaluate(motorRightFront.getCurrentPosition(), adjustedCounts)) {
 //                    telemetry.addData("encoder count", motorRightFront.getCurrentPosition());
 //                    telemetry.addData("Counts", -Math.abs((int) counts));
->>>>>>> origin/master
-                    motorRightFront.setPower(.17 * multiplier);
-                    motorRightBack.setPower(.17 * multiplier);
-                    motorLeftFront.setPower(.17 * multiplier);
-                    motorLeftBack.setPower(.17 * multiplier);
 
-                    Log.d("accelerometer", Float.toString(currentAcceleration));
-                    telemetry.log.add("acceleration:" + Float.toString(currentAcceleration));
+                        motorRightFront.setPower(.17 * multiplier);
+                        motorRightBack.setPower(.17 * multiplier);
+                        motorLeftFront.setPower(.17 * multiplier);
+                        motorLeftBack.setPower(.17 * multiplier);
 
-                    if(comparison.evaluate(motorRightFront.getCurrentPosition(), 1000 * multiplier) && currentAcceleration < -1.7) {
-                        motorRightFront.setPower(0);
-                        motorRightBack.setPower(0);
-                        motorLeftFront.setPower(0);
-                        motorLeftBack.setPower(0);
-                        SwerveUtil.playSound(MyApplication.get(), R.raw.briefchord);
-                        stop();
+                        Log.d("accelerometer", Float.toString(currentAcceleration));
+                        telemetry.log.add("acceleration:" + Float.toString(currentAcceleration));
+
+                        if (comparison.evaluate(motorRightFront.getCurrentPosition(), 1000 * multiplier) && currentAcceleration < -1.7) {
+                            motorRightFront.setPower(0);
+                            motorRightBack.setPower(0);
+                            motorLeftFront.setPower(0);
+                            motorLeftBack.setPower(0);
+                            SwerveUtil.playSound(MyApplication.get(), R.raw.briefchord);
+                            requestOpModeStop();
+                        }
                     }
+                    motorRightFront.setPower(0);
+                    motorRightBack.setPower(0);
+                    motorLeftFront.setPower(0);
+                    motorLeftBack.setPower(0);
+
+                    Thread.sleep(1500);
                 }
-                motorRightFront.setPower(0);
-                motorRightBack.setPower(0);
-                motorLeftFront.setPower(0);
-                motorLeftBack.setPower(0);
 
-                Thread.sleep(1500);
-            }
-
-            if (i < turns.size()) {
-                Log.d(AUTON_TAG, "Turn " + i + " not skipped.");
-                gyroUtility.turn(turns.get(i));
+                if (i < turns.size()) {
+                    Log.d(AUTON_TAG, "Turn " + i + " not skipped.");
+                    gyroUtility.turn(turns.get(i));
+                }
             }
         }
     }
