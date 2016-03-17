@@ -109,9 +109,15 @@ public abstract class BaseOpMode extends SynchronousOpMode implements SensorEven
                     multiplier = -1;
                 }
 
+<<<<<<< HEAD
                 while (comparison.evaluate(motorRightFront.getCurrentPosition() - originalPosition, adjustedCounts)) {
                     telemetry.addData("encoder count", motorRightFront.getCurrentPosition());
                     telemetry.addData("Counts", -Math.abs((int) counts));
+=======
+                while (comparison.evaluate(motorRightFront.getCurrentPosition(), adjustedCounts)) {
+//                    telemetry.addData("encoder count", motorRightFront.getCurrentPosition());
+//                    telemetry.addData("Counts", -Math.abs((int) counts));
+>>>>>>> origin/master
                     motorRightFront.setPower(.17 * multiplier);
                     motorRightBack.setPower(.17 * multiplier);
                     motorLeftFront.setPower(.17 * multiplier);
