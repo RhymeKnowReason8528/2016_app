@@ -108,8 +108,8 @@ public abstract class BaseOpMode extends SynchronousOpMode implements SensorEven
                 }
 
                 while (comparison.evaluate(motorRightFront.getCurrentPosition(), adjustedCounts)) {
-                    telemetry.addData("encoder count", motorRightFront.getCurrentPosition());
-                    telemetry.addData("Counts", -Math.abs((int) counts));
+//                    telemetry.addData("encoder count", motorRightFront.getCurrentPosition());
+//                    telemetry.addData("Counts", -Math.abs((int) counts));
                     motorRightFront.setPower(.17 * multiplier);
                     motorRightBack.setPower(.17 * multiplier);
                     motorLeftFront.setPower(.17 * multiplier);
