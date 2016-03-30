@@ -125,14 +125,16 @@ public abstract class BaseOpMode extends SynchronousOpMode implements SensorEven
                         Log.d("accelerometer", Float.toString(currentAcceleration));
                         telemetry.log.add("acceleration:" + Float.toString(currentAcceleration));
 
-                        if (comparison.evaluate(motorRightFront.getCurrentPosition(), 1000 * multiplier) && currentAcceleration < -1.7) {
-                            motorRightFront.setPower(0);
-                            motorRightBack.setPower(0);
-                            motorLeftFront.setPower(0);
-                            motorLeftBack.setPower(0);
-                            SwerveUtil.playSound(MyApplication.get(), R.raw.briefchord);
-                            requestOpModeStop();
-                        }
+/*                       if (comparison.evaluate(motorRightFront.getCurrentPosition(), 1000 * multiplier) && currentAcceleration < -1.0) {
+                           SwerveUtil.playSound(MyApplication.get(), R.raw.briefchord);
+                           motorRightFront.setPower(0);
+                           motorRightBack.setPower(0);
+                           motorLeftFront.setPower(0);
+                           motorLeftBack.setPower(0);
+                           Thread.sleep(1000);
+                           while(true) {
+                           }
+                        }*/
                     }
                     motorRightFront.setPower(0);
                     motorRightBack.setPower(0);
