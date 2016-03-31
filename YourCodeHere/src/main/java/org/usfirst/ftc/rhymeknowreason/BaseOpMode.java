@@ -86,13 +86,13 @@ public abstract class BaseOpMode extends SynchronousOpMode implements SensorEven
     public void moveElbow(double speed, double distance) {
         double initialDistance = armElbow.getCurrentPosition();
         if(distance >= 0) {
-            while (armElbow.getCurrentPosition() < distance - initialDistance) {
+            while (armElbow.getCurrentPosition() < distance + initialDistance) {
                 armElbow.setPower(speed);
                 Log.d(AUTON_TAG, "elbow position is " + armElbow.getCurrentPosition());
             }
         }
         else {
-            while (armElbow.getCurrentPosition() > distance + initialDistance) {
+            while (armElbow.getCurrentPosition() > distance - initialDistance) {
                 armElbow.setPower(-speed);
                 Log.d(AUTON_TAG, "elbow position is " + armElbow.getCurrentPosition());
             }
@@ -103,13 +103,13 @@ public abstract class BaseOpMode extends SynchronousOpMode implements SensorEven
     public void moveShoulder(double speed, double distance) {
         double initialDistance = armShoulder.getCurrentPosition();
         if(distance >= 0) {
-            while (armShoulder.getCurrentPosition() < (distance * TICKS_PER_ROTATION_ANDYMARK_60) - initialDistance) {
+            while (armShoulder.getCurrentPosition() < (distance * TICKS_PER_ROTATION_ANDYMARK_60) + initialDistance) {
                 armShoulder.setPower(speed);
                 Log.d(AUTON_TAG, "elbow position is " + armShoulder.getCurrentPosition());
             }
         }
         else {
-            while (armShoulder.getCurrentPosition() > (distance * TICKS_PER_ROTATION_ANDYMARK_60) + initialDistance) {
+            while (armShoulder.getCurrentPosition() > (distance * TICKS_PER_ROTATION_ANDYMARK_60) - initialDistance) {
                 armShoulder.setPower(-speed);
                 Log.d(AUTON_TAG, "elbow position is " + armShoulder.getCurrentPosition());
             }
