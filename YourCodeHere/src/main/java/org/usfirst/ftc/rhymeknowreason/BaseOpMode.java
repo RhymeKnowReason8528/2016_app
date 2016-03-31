@@ -83,6 +83,58 @@ public abstract class BaseOpMode extends SynchronousOpMode implements SensorEven
 
     IBNO055IMU.Parameters parameters = new IBNO055IMU.Parameters();
 
+    public void moveElbow(double speed, double distance) {
+        double initialDistance = armElbow.getCurrentPosition();
+        if(distance >= 0) {
+            while (armElbow.getCurrentPosition() < distance - initialDistance) {
+                armElbow.setPower(speed);
+                Log.d(AUTON_TAG, "elbow position is " + armElbow.getCurrentPosition());
+            }
+        }
+        else {
+            while (armElbow.getCurrentPosition() > distance + initialDistance) {
+                armElbow.setPower(-speed);
+                Log.d(AUTON_TAG, "elbow position is " + armElbow.getCurrentPosition());
+            }
+        }
+        armElbow.setPower(0);
+    }
+
+    public void moveShoulder(double speed, double distance) {
+        double initialDistance = armShoulder.getCurrentPosition();
+        if(distance >= 0) {
+            while (armShoulder.getCurrentPosition() < (distance * TICKS_PER_ROTATION_ANDYMARK_60) - initialDistance) {
+                armShoulder.setPower(speed);
+                Log.d(AUTON_TAG, "elbow position is " + armShoulder.getCurrentPosition());
+            }
+        }
+        else {
+            while (armShoulder.getCurrentPosition() > (distance * TICKS_PER_ROTATION_ANDYMARK_60) + initialDistance) {
+                armShoulder.setPower(-speed);
+                Log.d(AUTON_TAG, "elbow position is " + armShoulder.getCurrentPosition());
+            }
+        }
+        armShoulder.setPower(0);
+    }
+
+    public void moveArmAndShoulder(double speed, double distance) {
+        double initialDistance = armElbow.getCurrentPosition();
+        if(distance >= 0) {
+            while (armElbow.getCurrentPosition() < distance - initialDistance) {
+                armShoulder.setPower(-speed);
+                armElbow.setPower(speed/4);
+            }
+        }
+        else {
+            while (armElbow.getCurrentPosition() > distance + initialDistance) {
+                armShoulder.setPower(speed);
+                armElbow.setPower(-speed/4);
+            }
+        }
+        armElbow.setPower(0);
+        armShoulder.setPower(0);
+    }
+
     public void runPath() throws InterruptedException {
 
         parameters.angleUnit = IBNO055IMU.ANGLEUNIT.DEGREES;
