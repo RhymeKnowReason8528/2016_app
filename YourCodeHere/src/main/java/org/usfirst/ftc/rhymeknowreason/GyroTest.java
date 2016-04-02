@@ -33,7 +33,8 @@ public class GyroTest extends BaseOpMode {
 
        // for(int i = 0; i < 300; i++) {
         while(!isStarted()) {
-            telemetry.addData("current heading", Integer.toString(gyroSensor.getIntegratedZValue()));
+            telemetry.addData("integrated z value", Integer.toString(gyroSensor.getIntegratedZValue()));
+            telemetry.addData("heading", Integer.toString(gyroSensor.getHeading()));
             telemetry.update();
         }
          //   telemetry.addData("Gyro heading", gyroSensor.getIntegratedZValue());
