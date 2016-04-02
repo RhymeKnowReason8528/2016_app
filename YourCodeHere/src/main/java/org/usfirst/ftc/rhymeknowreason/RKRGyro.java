@@ -19,6 +19,9 @@ public class RKRGyro{
     DcMotor[] mRightMotorArray;
     DcMotor[] mLeftMotorArray;
 
+    final static double FAST_LIMIT_GYRO = 0.4;
+    final static double SLOW_LIMIT_GYRO = 0.2;
+
     public static enum Comparison{
         LESS_THAN{
             @Override
@@ -85,16 +88,16 @@ public class RKRGyro{
 
             headingError = (adjustedTargetHeading - currentHeading);
             driveSteering = headingError * DRIVE_GAIN;
-            if(driveSteering > .4) {
-                driveSteering = .4;
-            } else if (driveSteering < -0.4) {
-                driveSteering = -0.4;
-            } else if (driveSteering < 0.2 && driveSteering > -.2) {
+            if(driveSteering > FAST_LIMIT_GYRO) {
+                driveSteering = FAST_LIMIT_GYRO;
+            } else if (driveSteering < -FAST_LIMIT_GYRO) {
+                driveSteering = -FAST_LIMIT_GYRO;
+            } else if (driveSteering < SLOW_LIMIT_GYRO && driveSteering > -SLOW_LIMIT_GYRO) {
                 if(comparisonToUse == Comparison.LESS_THAN) {
-                    driveSteering = 0.2;
+                    driveSteering = SLOW_LIMIT_GYRO;
                 }
                 else {
-                    driveSteering = -0.2;
+                    driveSteering = -SLOW_LIMIT_GYRO;
                 }
             }
             for(DcMotor motor: mRightMotorArray) {
