@@ -77,6 +77,7 @@ public class RKRTeleOp extends OpMode {
         servoFlame.setPosition(0.5);
         climberReleaser.setPosition(RKRAuto.CLIMBER_RELEASER_CLOSED);
         isClimberReleaserOpen = false;
+        plow.setPosition(0.0);
 
         mGyro.calibrate();
 
