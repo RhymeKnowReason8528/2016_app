@@ -41,7 +41,7 @@ public class RKRGyro{
 
     Comparison comparisonToUse;
 
-    final double DRIVE_GAIN = .01;
+    final double DRIVE_GAIN = .005;
     BaseOpMode mOpMode;
 
 

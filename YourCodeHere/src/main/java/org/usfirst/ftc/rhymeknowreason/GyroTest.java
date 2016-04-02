@@ -32,7 +32,9 @@ public class GyroTest extends BaseOpMode {
         telemetry.log.add("Calibration finished.");
 
        // for(int i = 0; i < 300; i++) {
-            telemetry.log.add(Double.toString(gyroSensor.getIntegratedZValue()));
+        while(!isStarted()) {
+            telemetry.addData("current heading", Integer.toString(gyroSensor.getIntegratedZValue()));
+        }
          //   telemetry.addData("Gyro heading", gyroSensor.getIntegratedZValue());
          //   Thread.sleep(10);
         //}
