@@ -36,6 +36,7 @@ public abstract class BaseOpMode extends SynchronousOpMode implements SensorEven
     Servo servoFlame;
     Servo leftWing;
     Servo rightWing;
+    Servo plow;
     SensorManager sensorManager;
     Sensor accelerometer;
 
@@ -76,6 +77,11 @@ public abstract class BaseOpMode extends SynchronousOpMode implements SensorEven
 
     static final double CLIMBER_RELEASER_CLOSED = 0.48;
     static final double CLIMBER_RELEASER_OPEN = 0.37;
+
+    static final double PLOW_UP = .40;
+    static final double PLOW_DOWN = .60;
+    //should test these values
+
 
     //Overwrite these and add desired values to define autonomous path
     ArrayList<Double> distances = new ArrayList<>();
@@ -221,7 +227,9 @@ public abstract class BaseOpMode extends SynchronousOpMode implements SensorEven
         servoFlame = hardwareMap.servo.get("flame_servo");
         rightWing = hardwareMap.servo.get("right_wing");
         leftWing = hardwareMap.servo.get("left_wing");
+        plow = hardwareMap.servo.get("plow");
         climberReleaser.setPosition(RKRAuto.CLIMBER_RELEASER_CLOSED);
+        plow.setPosition(RKRAuto.PLOW_DOWN);
         servoFlame.setPosition(0.5);
         rightWing.setPosition(0.5);
         leftWing.setPosition(0.5);

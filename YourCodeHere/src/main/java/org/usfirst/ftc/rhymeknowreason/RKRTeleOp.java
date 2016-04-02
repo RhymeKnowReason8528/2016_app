@@ -22,12 +22,15 @@ public class RKRTeleOp extends OpMode {
     Servo leftWing;
     Servo rightWing;
     Servo climberReleaser;
+    Servo plow;
 
     ModernRoboticsI2cGyro mGyro;
 
     boolean isClimberReleaserOpen;
     boolean wasReleaseButtonPressed = false;
 
+    boolean isPlowUp;
+    boolean wasPlowButtonPressed = false;
 
     //Constants
     final float DEAD_ZONE = (float).15;
@@ -45,6 +48,7 @@ public class RKRTeleOp extends OpMode {
         rightWing = hardwareMap.servo.get("right_wing");
         leftWing = hardwareMap.servo.get("left_wing");
         climberReleaser = hardwareMap.servo.get("climber_releaser");
+        plow = hardwareMap.servo.get("plow");
         // test to see if spin in the right direction
         // if not, setDirection();
 
@@ -161,13 +165,29 @@ public class RKRTeleOp extends OpMode {
             }
         }
 
+        if(gamepad2.a && !wasPlowButtonPressed){
+            if(isPlowUp){
+               plow.setPosition(BaseOpMode.PLOW_DOWN);
+                isPlowUp = false;
+            } else {
+                plow.setPosition(BaseOpMode.PLOW_UP);
+                isPlowUp = true;
+            }
+
+        }
 
         telemetry.addData("Right Power:", motorRightFront.getPower());
         telemetry.addData("Right Encoder: ", motorRightFront.getCurrentPosition());
         telemetry.addData("Left Power:", motorLeftFront.getPower());
         telemetry.addData("Left Encoder: ", motorLeftFront.getCurrentPosition());
 
+        telemetry.addData("Arm Shoulder: ", armShoulder.getCurrentPosition());
+        telemetry.addData("Arm Elbow: ", armElbow.getCurrentPosition());
+
         wasReleaseButtonPressed = gamepad2.y;
+        wasPlowButtonPressed = gamepad2.a;
+
+
 
         //continuous servo controlled by 2nd gamepad
     }
