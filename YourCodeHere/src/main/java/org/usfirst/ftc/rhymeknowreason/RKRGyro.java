@@ -20,7 +20,7 @@ public class RKRGyro{
     DcMotor[] mLeftMotorArray;
 
     final static double FAST_LIMIT_GYRO = 0.4;
-    final static double SLOW_LIMIT_GYRO = 0.2;
+    final static double SLOW_LIMIT_GYRO = 0.1;
 
     public static enum Comparison{
         LESS_THAN{
