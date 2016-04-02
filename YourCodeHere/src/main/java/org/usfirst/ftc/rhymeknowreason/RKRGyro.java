@@ -84,17 +84,17 @@ public class RKRGyro{
             Log.d(RKR_GYRO_TAG, "Current gyro position: " + Double.toString(currentHeading));
 
             headingError = (adjustedTargetHeading - currentHeading);
-            driveSteering = headingError*DRIVE_GAIN;
+            driveSteering = headingError * DRIVE_GAIN;
             if(driveSteering > .4) {
                 driveSteering = .4;
             } else if (driveSteering < -0.4) {
                 driveSteering = -0.4;
             } else if (driveSteering < 0.2 && driveSteering > -.2) {
                 if(comparisonToUse == Comparison.LESS_THAN) {
-                    driveSteering = 0.4;
+                    driveSteering = 0.2;
                 }
                 else {
-                    driveSteering = -0.4;
+                    driveSteering = -0.2;
                 }
             }
             for(DcMotor motor: mRightMotorArray) {
