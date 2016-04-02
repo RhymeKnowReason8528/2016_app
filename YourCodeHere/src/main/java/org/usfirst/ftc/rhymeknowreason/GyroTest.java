@@ -43,8 +43,9 @@ public class GyroTest extends BaseOpMode {
 
         waitForStart();
         gyroUtility.turn(90);
-        Thread.sleep(1000);
-        gyroUtility.turn(-90);
+
+        telemetry.addData("final heading", Integer.toString(gyroSensor.getHeading()));
+        telemetry.addData("final integrated z value", Integer.toString(gyroSensor.getIntegratedZValue()));
     }
 }
 
