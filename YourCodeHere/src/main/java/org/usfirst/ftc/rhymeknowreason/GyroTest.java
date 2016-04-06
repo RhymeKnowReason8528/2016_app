@@ -44,7 +44,7 @@ public class GyroTest extends BaseOpMode {
         waitForStart();
         gyroUtility.turn(90);
 
-        while(true) {
+        while(opModeIsActive()) {
             telemetry.addData("final heading", Integer.toString(gyroSensor.getHeading()));
             telemetry.addData("final integrated z value", Integer.toString(gyroSensor.getIntegratedZValue()));
             telemetry.update();
