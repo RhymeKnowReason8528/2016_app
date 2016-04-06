@@ -123,23 +123,6 @@ public abstract class BaseOpMode extends SynchronousOpMode implements SensorEven
         armShoulder.setPower(0);
     }
 
-    public void moveArmAndShoulder(double speed, double distance) {
-        double initialDistance = armElbow.getCurrentPosition();
-        if(distance >= 0) {
-            while (armElbow.getCurrentPosition() < distance - initialDistance) {
-                armShoulder.setPower(-speed);
-                armElbow.setPower(speed/4);
-            }
-        }
-        else {
-            while (armElbow.getCurrentPosition() > distance + initialDistance) {
-                armShoulder.setPower(speed);
-                armElbow.setPower(-speed/4);
-            }
-        }
-        armElbow.setPower(0);
-        armShoulder.setPower(0);
-    }
 
     public void runPath() throws InterruptedException {
 
@@ -150,6 +133,10 @@ public abstract class BaseOpMode extends SynchronousOpMode implements SensorEven
         Log.d(AUTON_TAG, Double.toString(Math.max(distances.size(), turns.size())));
         for (int i = 0; i < Math.max(distances.size(), turns.size()); i++) {
             Log.d(AUTON_TAG, "Running distance " + i);
+            if (i < turns.size()) {
+                Log.d(AUTON_TAG, "Turn " + i + " not skipped.");
+                gyroUtility.turn(turns.get(i));
+            }
             if (i < distances.size()) {
                 Log.d(AUTON_TAG, "Distance " + i + " not skipped.");
                 double originalPosition = motorRightFront.getCurrentPosition();
