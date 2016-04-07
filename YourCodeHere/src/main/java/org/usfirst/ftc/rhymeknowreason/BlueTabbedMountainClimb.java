@@ -5,8 +5,8 @@ import org.swerverobotics.library.interfaces.Autonomous;
 /**
  * Created by RobotK on 3/30/2016.
  */
-@Autonomous(name = "BlueMountainClimb")
-public class BlueMountainClimb extends BaseOpMode {
+@Autonomous(name = "BlueTabbedMountainClimb")
+public class BlueTabbedMountainClimb extends BaseOpMode {
     @Override
     protected void main() throws InterruptedException {
         initialize(false);
@@ -21,7 +21,7 @@ public class BlueMountainClimb extends BaseOpMode {
         //turns.add(new Double(-90));
         //turns.add(new Double(0));
 
-        plow.setPosition(PLOW_UP);
+        plow.setPosition(PLOW_DOWN);
 
         waitForStart();
 
@@ -39,11 +39,18 @@ public class BlueMountainClimb extends BaseOpMode {
 //        motorLeftBack.setPower(0);
 //        motorLeftFront.setPower(0);
 
+        moveStraight(0.2, -0.5);//-1
+        gyroUtility.turn(62);
+        moveStraight(0.2, -6);
+       // moveStraight(0.2, 0.25);
+        gyroUtility.turn(-90);
+        plow.setPosition(PLOW_UP);
+        moveStraight(0.2, 1);
+
+
         //first pull
         double initialElbow = 0;
         double initialShoulder = 0;
-
-        plow.setPosition(PLOW_UP);
 
         moveElbow(0.2, 400);
         moveShoulder(0.6, -5.5);
@@ -72,7 +79,7 @@ public class BlueMountainClimb extends BaseOpMode {
         moveShoulder(1, 2.5);
 
         moveElbow(0.2, 1200);
-        moveShoulder(0.6, -6);
+        moveShoulder(0.6, -5.5);
         Thread.sleep(1000);
         while(armShoulder.getCurrentPosition() < (initialShoulder + 6500)) {
             armShoulder.setPower(1);

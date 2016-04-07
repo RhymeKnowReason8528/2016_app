@@ -123,6 +123,32 @@ public abstract class BaseOpMode extends SynchronousOpMode implements SensorEven
         armShoulder.setPower(0);
     }
 
+    public void moveStraight(double speed, double distance) throws InterruptedException {
+        double initialDistance = motorRightFront.getCurrentPosition();
+        if(distance >= 0) {
+            while (motorRightFront.getCurrentPosition() < (distance * TICKS_PER_ROTATION_TETRIX) + initialDistance) {
+                motorRightFront.setPower(speed);
+                motorRightBack.setPower(speed);
+                motorLeftFront.setPower(speed);
+                motorLeftBack.setPower(speed);
+            }
+        }
+        else {
+            while (motorRightFront.getCurrentPosition() > (distance * TICKS_PER_ROTATION_TETRIX) - initialDistance) {
+                motorRightFront.setPower(-speed);
+                motorRightBack.setPower(-speed);
+                motorLeftFront.setPower(-speed);
+                motorLeftBack.setPower(-speed);
+                Log.d(AUTON_TAG, "elbow position is " + armShoulder.getCurrentPosition());
+            }
+        }
+        motorRightFront.setPower(0);
+        motorRightBack.setPower(0);
+        motorLeftFront.setPower(0);
+        motorLeftBack.setPower(0);
+        Thread.sleep(750);
+    }
+
 
     public void runPath() throws InterruptedException {
 
