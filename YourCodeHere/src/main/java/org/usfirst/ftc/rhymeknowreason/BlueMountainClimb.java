@@ -13,29 +13,31 @@ public class BlueMountainClimb extends BaseOpMode {
         /*
         TODO: put path of robot here
         * */
-        distances.add(new Double(-7));
-        distances.add(new Double(-50));
+        //distances.add(new Double(-7));
+        //distances.add(new Double(-50));
        // distances.add(new Double(20));
-        turns.add(new Double(0));
-        turns.add(new Double(35));
+        //turns.add(new Double(0));
+        //turns.add(new Double(35));
         //turns.add(new Double(-90));
         //turns.add(new Double(0));
 
+        plow.setPosition(PLOW_UP);
+
         waitForStart();
 
-        runPath();
+        //runPath();
 
-        gyroUtility.turn(-90);
-        while(motorRightFront.getCurrentPosition() < 50) {
-            motorRightFront.setPower(1);
-            motorRightBack.setPower(1);
-            motorLeftBack.setPower(1);
-            motorLeftFront.setPower(1);
-        }
-        motorRightFront.setPower(0);
-        motorRightBack.setPower(0);
-        motorLeftBack.setPower(0);
-        motorLeftFront.setPower(0);
+//        gyroUtility.turn(-90);
+//        while(motorRightFront.getCurrentPosition() < 50) {
+//            motorRightFront.setPower(1);
+//            motorRightBack.setPower(1);
+//            motorLeftBack.setPower(1);
+//            motorLeftFront.setPower(1);
+//        }
+//        motorRightFront.setPower(0);
+//        motorRightBack.setPower(0);
+//        motorLeftBack.setPower(0);
+//        motorLeftFront.setPower(0);
 
         //first pull
         double initialElbow = 0;
