@@ -78,8 +78,8 @@ public abstract class BaseOpMode extends SynchronousOpMode implements SensorEven
     static final double CLIMBER_RELEASER_CLOSED = 0.48;
     static final double CLIMBER_RELEASER_OPEN = 0.37;
 
-    static final double PLOW_UP = 0.3;
-    static final double PLOW_DOWN = 0.6;
+    static final double PLOW_UP = 0.25;
+    static final double PLOW_DOWN = 0.7;
     //should test these values
 
 
