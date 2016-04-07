@@ -75,6 +75,7 @@ public class RKRTeleOp extends OpMode {
         rightWing.setPosition(0.5);
         leftWing.setPosition(0.5);
         servoFlame.setPosition(0.5);
+        plow.setPosition(BaseOpMode.PLOW_UP);
         climberReleaser.setPosition(RKRAuto.CLIMBER_RELEASER_CLOSED);
         isClimberReleaserOpen = false;
 
