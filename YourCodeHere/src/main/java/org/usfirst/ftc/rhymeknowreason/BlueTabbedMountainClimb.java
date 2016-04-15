@@ -40,12 +40,12 @@ public class BlueTabbedMountainClimb extends BaseOpMode {
 //        motorLeftFront.setPower(0);
 
         moveStraight(0.2, -0.5);//-1
-        gyroUtility.turn(62);
+        gyroUtility.turn(59);
         moveStraight(0.2, -6);
        // moveStraight(0.2, 0.25);
         gyroUtility.turn(-90);
         plow.setPosition(PLOW_UP);
-        moveStraight(0.2, 1);
+        moveStraight(0.2, 1.5);
 
 
         //first pull
