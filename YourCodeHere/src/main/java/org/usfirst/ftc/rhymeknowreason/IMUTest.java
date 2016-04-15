@@ -1,11 +1,13 @@
 package org.usfirst.ftc.rhymeknowreason;
 
 import org.swerverobotics.library.interfaces.Autonomous;
+import org.swerverobotics.library.interfaces.Disabled;
 
 /**
  * Created by Robotics on 3/7/2016.
  */
 @Autonomous(name = "IMU Test")
+@Disabled
 public class IMUTest extends BaseOpMode {
 
     @Override

@@ -1,12 +1,14 @@
 package org.usfirst.ftc.rhymeknowreason;
 
 import org.swerverobotics.library.interfaces.Autonomous;
+import org.swerverobotics.library.interfaces.Disabled;
 
 /**
  * Created by oeiplaptop2 on 3/9/16.
  */
 
 @Autonomous(name = "Useless OpMode")
+@Disabled
 public class UselessOpMode extends BaseOpMode {
 
     @Override

@@ -4,11 +4,13 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 
 import org.swerverobotics.library.interfaces.Autonomous;
+import org.swerverobotics.library.interfaces.Disabled;
 
 /**
  * Created by RobotK on 2/1/2016.
  */
 @Autonomous(name = "Delay Autonomous")
+@Disabled
 public class RKR_Auto_delay_10 extends BaseOpMode {
 
     @Override

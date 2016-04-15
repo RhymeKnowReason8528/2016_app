@@ -13,6 +13,7 @@ import org.swerverobotics.library.interfaces.Disabled;
  * Created by RobotK on 1/30/2016.
  */
 @Autonomous(name = "Gyro Test")
+@Disabled
 public class GyroTest extends BaseOpMode {
 
     final String LOG_TAG = "gyro-log";

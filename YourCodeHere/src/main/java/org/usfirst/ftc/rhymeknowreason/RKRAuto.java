@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.swerverobotics.library.interfaces.Autonomous;
+import org.swerverobotics.library.interfaces.Disabled;
 
 /**
  * Created by Robotics on 12/1/2015.
@@ -17,6 +18,7 @@ import org.swerverobotics.library.interfaces.Autonomous;
  *          from driver class.
  */
 @Autonomous(name = "Parking Zone Autonomous")
+@Disabled
 public class RKRAuto extends BaseOpMode {
 
 
