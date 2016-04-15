@@ -75,7 +75,7 @@ public class RKRTeleOp extends OpMode {
         rightWing.setPosition(0.5);
         leftWing.setPosition(0.5);
         servoFlame.setPosition(0.5);
-        plow.setPosition(BaseOpMode.PLOW_UP);
+        plow.setPosition(BaseOpMode.PLOW_DOWN);
         climberReleaser.setPosition(RKRAuto.CLIMBER_RELEASER_CLOSED);
         isClimberReleaserOpen = false;
 
@@ -176,6 +176,7 @@ public class RKRTeleOp extends OpMode {
             }
 
         }
+
 
         telemetry.addData("Right Power:", motorRightFront.getPower());
         telemetry.addData("Right Encoder: ", motorRightFront.getCurrentPosition());
