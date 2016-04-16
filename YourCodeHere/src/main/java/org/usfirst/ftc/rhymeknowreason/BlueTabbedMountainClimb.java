@@ -1,11 +1,13 @@
 package org.usfirst.ftc.rhymeknowreason;
 
 import org.swerverobotics.library.interfaces.Autonomous;
+import org.swerverobotics.library.interfaces.Disabled;
 
 /**
  * Created by RobotK on 3/30/2016.
  */
 @Autonomous(name = "BlueTabbedMountainClimb")
+@Disabled
 public class BlueTabbedMountainClimb extends BaseOpMode {
     @Override
     protected void main() throws InterruptedException {
