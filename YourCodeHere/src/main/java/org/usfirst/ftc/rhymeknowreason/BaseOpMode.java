@@ -321,6 +321,56 @@ public abstract class BaseOpMode extends SynchronousOpMode implements SensorEven
         }
     }
 
+    public void climbMountain() throws InterruptedException {
+        double initialElbow = 0;
+        double initialShoulder = 0;
+
+        moveElbow(0.2, 400);
+        moveShoulder(0.6, -6.5);
+        Thread.sleep(1000);
+        initialShoulder = armShoulder.getCurrentPosition();
+        while(armShoulder.getCurrentPosition() < (initialShoulder + 3360)) {
+            armShoulder.setPower(1);
+            armElbow.setPower(-1);
+            motorRightBack.setPower(1);
+            motorRightFront.setPower(1);
+            motorLeftBack.setPower(1);
+            motorLeftFront.setPower(1);
+        }
+        armShoulder.setPower(0);
+        armElbow.setPower(0);
+        motorRightBack.setPower(0);
+        motorRightFront.setPower(0);
+        motorLeftBack.setPower(0);
+        motorLeftFront.setPower(0);
+
+        //end of first pull
+
+        Thread.sleep(1000);
+
+        moveElbow(1, 650);
+        moveShoulder(1, 4.5);
+
+        moveElbow(0.2, 1200);
+        moveShoulder(0.6, -5.5);
+        Thread.sleep(1000);
+        while(armShoulder.getCurrentPosition() < (initialShoulder + 6500)) {
+            armShoulder.setPower(1);
+            armElbow.setPower(-6);
+            motorRightBack.setPower(1);
+            motorRightFront.setPower(1);
+            motorLeftBack.setPower(1);
+            motorLeftFront.setPower(1);
+        }
+        armShoulder.setPower(0);
+        armElbow.setPower(0);
+        motorRightBack.setPower(0);
+        motorRightFront.setPower(0);
+        motorLeftBack.setPower(0);
+        motorLeftFront.setPower(0);
+        moveShoulder(0.9, 2);
+    }
+
     @Override
     public void onSensorChanged(SensorEvent event) {
         currentAcceleration = event.values[1];
