@@ -40,7 +40,7 @@ public class RedMountainClose extends BaseOpMode {
 //        motorLeftFront.setPower(0);
 
         moveStraight(0.2, -0.5);//-1
-        gyroUtility.turn(-60);
+        gyroUtility.turn(-55);
         moveStraight(0.2, -4);
         // moveStraight(0.2, 0.25);
         gyroUtility.turn(90);
