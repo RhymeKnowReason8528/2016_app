@@ -29,7 +29,7 @@ android {
     }
 
     defaultConfig {
-        applicationId 'com.qualcomm.ftcrobotcontroller'
+        applicationId 'com.rhymeknowreason.controller2016'
         minSdkVersion 16
         targetSdkVersion 19
 
